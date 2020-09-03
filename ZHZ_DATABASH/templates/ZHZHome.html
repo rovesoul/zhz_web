@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/DATABASH_CSS/ZHZHome.css">
+    <title>选择页面</title>
+
+</head>
+<body>
+{% extends 'moban_page_base1.html' %}
+{% block subtitle %}
+<p>本页关注统计数据，点击超级链接可进入具体页面</p>
+{% endblock subtitle %}
+
+{% block body_left %}
+<p>如果这句话是中文的呢，也许可以自动换行.一串字母不行</p>
+{% endblock body_left %}
+
+{% block body_right %}
+<div class="row databash_mother" id="databash_mother" >
+    <div class="col-md-2 col-sm-4 text-center databash">
+        <span class="databash_title">签订合同总数</span>
+        <div class="databash_value_div">
+            <span class="align-middle font-weight-bold databash_value_span"
+                  >{{ count_contrast }}</span>
+        </div>
+        <span class="databash_foot">个</span>
+    </div>
+    <div class="col-md-2 col-sm-4 text-center databash">
+        <span class="databash_title">自持设备数</span>
+        <div class="databash_value_div">
+            <span class="align-middle font-weight-bold databash_value_span" >{{count_self_device}}</span>
+        </div>
+        <span class="databash_foot">种</span>
+    </div>
+    <div class="col-md-2 col-sm-4 text-center databash">
+        <span class="databash_title">统计联系人</span>
+        <div class="databash_value_div">
+            <span class="align-middle font-weight-bold databash_value_span" >{{count_contact_person}}</span>
+        </div>
+        <span class="databash_foot">位</span>
+    </div>
+    <div class="col-md-2 col-sm-4 text-center databash">
+        <span class="databash_title">行业相关单位</span>
+        <div class="databash_value_div">
+            <span class="align-middle font-weight-bold databash_value_span"
+                  >{{ count_companys_contract }}</span>
+        </div>
+        <span class="databash_foot">家</span>
+    </div>
+    <div class="col-md-2 col-sm-4 text-center databash">
+        <span class="databash_title">统计机场</span>
+        <div class="databash_value_div">
+            <span class="align-middle font-weight-bold databash_value_span" >{{ count_airport_have_weak_device }}</span>
+        </div>
+        <span class="databash_foot" >个,设备{{ count_airport_device }}个</span>
+    </div>
+
+</div>
+
+<div class="row row-cols-1 row-cols-md-3">
+    {#  小块 #}
+    <div class="col mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">全国机场及合同信息</h5>
+                <p class="card-text">
+                    <small class="text-muted">统计了全国机场的分布汇总数据、中航质参与数据、签约合同摘要等内容。</small>
+                </p>
+                <a href="/ZHZ/dataspage/" class="btn btn-outline-info btn-sm" target="_blank"
+                   style="position: absolute;right: 20px;bottom: 20px">
+                    点击查看 </a>
+            </div>
+        </div>
+    </div>
+
+    {#  小块 #}
+    <div class="col mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">全国机场地图查看</h5>
+                <p class="card-text">
+                    <small class="text-muted">全国机场在地图上的分布，并可查看各机场概要。</small>
+                </p>
+                <a href="/ZHZ/af/" class="btn btn-outline-info btn-sm" target="_blank"
+                   style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+            </div>
+        </div>
+    </div>
+
+    {#  小块 #}
+    <div class="col mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">中航质设备清单</h5>
+                <p class="card-text">
+                    <small class="text-muted">查看中航质检测设备清单。并可在页尾填加设备</small>
+                </p>
+                <a href="/ZHZ/device/" class="btn btn-outline-info btn-sm" target="_blank"
+                   style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+            </div>
+        </div>
+    </div>
+
+    {#  小块 #}
+    <div class="col mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">行业及项目联系人</h5>
+                <p class="card-text">
+                    <small class="text-muted">统计行业及项目间联系人信息，便于查询。</small>
+                </p>
+                <a href="/ZHZ/person" class="btn btn-outline-info btn-sm" target="_blank"
+                   style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+            </div>
+        </div>
+    </div>
+
+    {#  小块 #}
+    <div class="col mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">各项目相关单位</h5>
+                <p class="card-text">
+                    <small class="text-muted">统计各项目业主、施工、设计、监理等相关方公司信息，便于查询。</small>
+                </p>
+                <a href="/ZHZ/person" class="btn btn-outline-info btn-sm" target="_blank"
+                   style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+            </div>
+        </div>
+    </div>
+
+
+    {#  小块 #}
+    <div class="col mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">各机场弱电设备、机电设备统计</h5>
+                <p class="card-text">
+                    <small class="text-muted">收集汇总各个机场项目建设中使用的弱电设备、机电设备。</small>
+                </p>
+                <a href="/ZHZ/trade/" class="btn btn-outline-info btn-sm" target="_blank"
+                   style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+            </div>
+        </div>
+    </div>
+
+
+    {#  小块 #}
+    <div class="col mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">考试刷题库</h5>
+                <p class="card-text">
+                    <small class="text-muted">交通工程考试相关。</small>
+                </p>
+                <a href="/kaoshi/" class="btn btn-outline-info btn-sm" target="_blank"
+                   style="position: absolute;right: 20px;bottom: 20px">点击跳转</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock body_right %}
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>pagename</title>
+</head>
+<body>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">{{ page_title }}</h1>
+        <hr class="my-4">
+        {% block subtitle %}<br>
+        {% endblock %}
+    </div>
+</div>
+
+<div class="container" id="div1">
+    <div class="row">
+        <div class="col-sm-3">
+            <h5>{{ request.session.user_name }}欢迎回来</h5>
+            <div><a href="/demo/logout/">登出</a></div>
+            <hr class="my-4">
+            <p>在本页面中，汇集了查看常见信息的内容，目前仅为部分，如需增加能容，请提供详细需求，并发送邮件到397703547@qq.com</p>
+            {% include 'base1_left_choiceButton.html' %}
+            <div style="width: 100%">
+                    {{ left_title }}
+                 {% block body_left %}<br>
+                 {% endblock %}
+
+            </div>
+        </div>
+        <div class="col-sm-9">
+            {{ right_title }}<br>
+            {%  block body_right  %}
+            {% endblock %}
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

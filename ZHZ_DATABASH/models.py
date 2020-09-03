@@ -70,11 +70,6 @@ class Project_Detail(models.Model):
 
 class Contracts(models.Model):
     """contracts合同信息"""
-    usetype = (
-        ('民用', "民用"),
-        ('军用', "军用"),
-        ('军民合用', "军民合用"),
-    )
     gender = (
         ('male', "男"),
         ('female', "女"),
