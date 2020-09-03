@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/kaoshiicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>{{ name }}</title>
+
+    <style>
+        #bz {
+            padding-top: 20px;
+            color: lightslategray;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        .title {
+            font-size: 20px;
+            border-bottom: 1px solid #ededed;
+            padding-top: 30px;
+            padding-bottom: 20px;
+        }
+
+        .answer {
+            font-size: 16px;
+            border-bottom: 1px solid #ededed;
+            padding-bottom: 20px;
+        }
+
+        .belong {
+            color: #999999;
+        }
+
+        .page {
+            color: #999999;
+        }
+
+        #titles {
+            margin: 3px auto;
+            border-radius: 10px;
+            max-width: 98%;
+            height: 530px;
+            text-align: justify;
+            padding: 8px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        #buttons {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div id="gongjiapp">
+    {% verbatim %}
+    <div id="titles">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="/kaoshi/ggjc">正序刷</a></li>
+            <li role="presentation"><a href="/kaoshi/ggjc/random/">乱序刷</a></li>
+            <li role="presentation" class="buttons "><a href="/kaoshi">{{ message }}</a></li>
+            <li role="presentation" class="buttons "><a href="/demo/logout/">注销登出</a></li>
+        </ul>
+        <br>
+        <h4>公共基础题目及答案 <span class="label label-info">Go</span> <span class="label label-warning" @click="getdoc">?</span></h4>
+
+        <div class="container">
+            <p class="title">{{ dic.question }}</p>
+            <ul class="answer">
+                <li v-for="a in dic.answer">
+                    {{a}}
+                </li>
+            </ul>
+
+            <p class="belong">{{ dic.belong }}</p>
+            <p class="page">{{ dic.pages }}</p>
+        </div>
+
+    </div>
+    <div id="buttons">
+
+        <button @click="sub">上一道</button>
+        <button @click="add">下一道</button>
+        <br>
+        <p>进度:<span>{{ num }} / </span>
+            <span>{{ count }}</span></p>
+        <br>
+
+        <div>
+            <span id="basic-addon3">请输入题号跳转</span>
+            <input v-model="num" @keyup.enter="jump" placeholder="请输入题号跳转" type="text" id="basic-url" aria-describedby="basic-addon3">
+        </div>
+    </div>
+
+    {% endverbatim %}
+</div>
+
+
+<script>
+    const app = new Vue({
+        el: "#gongjiapp",
+        data: {
+            message: "返回选择",
+            index_list: {{index_list}},
+            count:{{ count }},
+            dic: {},
+            number: 0, //这是判定list的位置的
+            num: 0,//这是传向后端取数的
+            widths: 0,
+            docu:''
+        },
+        methods: {
+            search: function () {
+                console.log('点个试试');
+            },
+            add: function () {
+                var that = this;
+                console.log('add');
+                // console.log(this.index_list);//显示题号列表
+                this.number++;
+                this.widths = this.num / this.count * 100;
+                this.num = this.index_list[this.number];
+                axios.get("/kaoshi/ggjc_api/?num=" + this.num).then(
+                    function (response) {
+                        console.log(response.data); //看返回内容
+                        //console.log(response.data.data[0].url);  //播放链接
+                        that.dic = response.data;
+                        // console.log(this.dic);
+
+                    },
+                    function (err) {
+                    }
+                );
+            },
+            sub: function () {
+                var that = this;
+                console.log('sub');
+                this.number--;
+                this.widths = this.num / this.count * 100;
+                this.num = this.index_list[this.number];
+                axios.get("/kaoshi/ggjc_api/?num=" + this.num).then(
+                    function (response) {
+                        //console.log(response); //看返回内容
+                        //console.log(response.data.data[0].url);  //播放链接
+                        that.dic = response.data;
+                        // console.log(this.dic);
+                    },
+                    function (err) {
+                    }
+                );
+            },
+            jump: function () {
+                var that = this;
+                this.number = this.num;
+                console.log("jump to", this.num)
+                axios.get("/kaoshi/ggjc_api/?num=" + this.num).then(
+                    function (response) {
+                        //console.log(response); //看返回内容
+                        //console.log(response.data.data[0].url);  //播放链接
+                        that.dic = response.data;
+                        // console.log(this.dic);
+                    },
+                    function (err) {
+                    }
+                );
+            },
+            getdoc:function(){
+                var that = this;
+                console.log("get document")
+                axios.get("/kaoshi/doc_api/?type=ggjc").then(
+                    function (response) {
+                        console.log(response); //看返回内容
+                        //console.log(response.data.data[0].url);  //播放链接
+                        that.docu = response.data;
+                        console.log(that.docu);
+                        alert(that.docu)
+                    },
+                    function (err) {
+                    }
+                );
+            },
+        }
+    })
+</script>
+
+
+</body>

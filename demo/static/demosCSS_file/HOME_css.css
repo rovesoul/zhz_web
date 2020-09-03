@@ -1,0 +1,49 @@
+.leftDiv3{
+    padding: 10px;
+}
+
+.databash_mother {
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+}
+
+.databash {
+    background-color: whitesmoke;
+    padding: 2px;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px
+}
+
+.databash_value_span {
+    font-size: 30px;
+}
+
+.databash_title {
+    font-family: "微软雅黑 Light";
+}
+
+.databash_value_div {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.databash_foot {
+    align-content: end;
+    font-family: "微软雅黑 Light";
+    color: #666;
+}
+
+/* 下边卡片的style */
+.card-body {
+    height: 200px;
+}
+
+[v-cloak]{
+    display: none;
+}

@@ -1,0 +1,43 @@
+
+.heads {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.BigDiv {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.leftDiv3 {
+    background-color:ghostwhite;
+}
+
+.rightDiv9 {
+
+}
+
+.bar_data_img {
+    height: 400px;
+}
+
+.magron-up-down-5{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.magron-up-down-10{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.know-button{
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+.append_constart{
+    border-radius: 5px;
+    background-color: lavender;
+    padding: 10px;
+    margin-bottom: 20px;
+}

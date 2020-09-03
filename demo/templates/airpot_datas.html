@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/demosCSS_file/airport_datas.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icon/clander.ico">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>全国机场数据</title>
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/china.js"></script>
+    <script type="text/javascript " src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript " src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+</head>
+
+<body>
+{# 页头 #}
+<div class="jumbotron">
+    <div class="heads">
+        <h1 class="display-4">机场分布数据</h1>
+        <p class="lead">本页展示全国机场分布数据情况.</p>
+        <hr class="my-4">
+        <p>数据需经常更新，如有更新请告知.</p>
+        <a class="btn btn-info" href="/demo/af/" target="_blank" role="button">看地图</a>
+    </div>
+</div>
+
+{# 页面信息 #}
+<div class="BigDiv">
+
+    {# 分左右列 #}
+    <div class="row">
+        <div class="col-sm-3 leftDiv3">
+            <div class="magron-up-down-10">
+                <h5>{{ request.session.user_name }}欢迎回来</h5>
+                <div><a href="/demo/logout/">登出</a></div>
+                <hr class="my-4">
+                <p>在本页面中，汇集了查看常见信息的内容，目前仅为部分，如需增加能容，请提供详细需求，并发送邮件到397703547@qq.com</p>
+                <p class="page-header"><a href="#contract_content">合同概览部分</a></p>
+                <p class="page-header"><a href="#contract_join">合同信息录入</a></p>
+            </div>
+
+        </div>
+        <div class="col-sm-9">
+            <div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5>全国机场统计</h5>
+                        <div id="bar1" class="bar_data_img"></div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <h5>各区域机场数量统计</h5>
+                        <div id="bar2" class="bar_data_img"></div>
+                    </div>
+
+                </div>
+                <div>
+                    <h5>各区域机场数量统计</h5>
+                    <div id="bar3" class="bar_data_img"></div>
+                </div>
+            </div>
+
+
+            <div>
+                <div id="div1">
+                    <hr class="my-4">
+                    {% verbatim %}
+                    <h4 id="contract_content">签约合同概览</h4>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">模糊搜索合同</label>
+                            <input type="text" class="form-control" v-model="select_text">
+                            <small id="emailHelp" class="form-text text-muted">空格区分关键字.</small>
+                        </div>
+                        <footer class="footer" style="text-align: right;">
+                            <button type="button" style="text-align: right;" class="btn btn-primary"
+                                    @click="amb_getcontract">Find
+                            </button>
+                        </footer>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">预制搜索</label>
+                            <div>
+                                <a class="know-button" href="javascript:;" @click="InitData">全部</a>
+                                <a class="know-button" href="javascript:;" @click="amb_getcontract_know('东北')">东北</a>
+                                <a class="know-button" href="javascript:;" @click="amb_getcontract_know('华北')">华北</a>
+                                <a class="know-button" href="javascript:;" @click="amb_getcontract_know('华东')">华东</a>
+                                <a class="know-button" href="javascript:;" @click="amb_getcontract_know('华南')">华南</a>
+                                <a class="know-button" href="javascript:;" @click="amb_getcontract_know('西南')">西南</a>
+                                <a class="know-button" href="javascript:;" @click="amb_getcontract_know('西北')">西北</a>
+                                <a class="know-button" href="javascript:;" @click="amb_getcontract_know('新疆')">新疆</a>
+                            </div>
+                        </div>
+
+                    </form>
+                    <p class="lead">共统计签约{{ datas_len }}个</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped" align="center">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th v-for="i in columns">{{i}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="i in datas">
+                                <td v-for="x in i">{{ x }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr class="my-4">
+                    <h4 id="contract_join">合同信息录入</h4>
+                    <div style="background-color: lightcyan;border-radius: 5px;">
+                        <form class="form-inline">
+                            <p>在填报合同表格过程中，需要填写机场项目名称及对应编号，这需要与数据库已有内容保持一致，通过此处搜索可获取。若查无此项，请联系管理员</p>
+                            <div class="form-group mb-2">
+                                <label for="staticEmail2" class="sr-only"></label>
+                                <input type="text" readonly class="form-control-plaintext"
+                                       value="项目名称及编号查询">
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="inputPassword2" class="sr-only">输入项目名关键字</label>
+                                <input type="text" class="form-control" placeholder="输入想查找项目，如上海"
+                                       v-model="select_text_for_no" >
+                            </div>
+                            <button type="submit" class="btn btn-info mb-2 btn-sm" @click="amb_p_no">查询</button>
+                        </form>
+                        <p v-show="datas_len_for_no > 0">搜索内容：{{ select_text_for_no }}；搜索出：{{ datas_len_for_no }}个机场</p>
+                        <p v-show="datas_len_for_no > 0">可点击choice选择目标机场项目</p>
+                        <div v-for="i in datas_for_no ">
+                            <ul>
+                                <li>
+                                    <label for="">名: {{ i.p_name }}, 编号: {{ i.p_no }}, 省份: {{ i.province }},
+                                        区域: {{i.region }}</label>
+                                    <button style="border-radius: 3px;background-color: greenyellow;" class='destroy'
+                                            @click="click_pnameandno(i.p_name,i.p_no)">choice
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4">
+                    <div class="append_constart">
+                        <form>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="合同名称" v-model="contract_name">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="合同编号" v-model="contract_no">
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control" placeholder="合同金额"
+                                           v-model="contract_amount">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="formGroupExampleInput">签约日期</label>
+                                    <input type="date" class="form-control" placeholder="签约日期" v-model="signing_date">
+                                </div>
+                                <div class="col">
+                                    <label for="formGroupExampleInput">机场项目名</label>
+                                    <input type="text" class="form-control" placeholder="机场项目名，可从上方查询" v-model="p_name">
+                                </div>
+                                <div class="col">
+                                    <label for="formGroupExampleInput">机场项目编号</label>
+                                    <input type="text" class="form-control" placeholder="机场项目编号，可从上方查询" v-model="p_no">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">业主公司名称</label>
+                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="业主公司名称"
+                                       v-model="first_part">
+                            </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">其他备注内容</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                          placeholder="记录任何关键备注信息"
+                                          v-model="notes"></textarea>
+                            </div>
+
+                            <footer class="footer" style="text-align: right;">
+                                <button type="button" class="btn btn-danger btn-sm" @click="clear_add_contarct">清空
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm" @click="add_contarst">提交添加</button>
+                            </footer>
+                        </form>
+                    </div>
+                    {% endverbatim %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var table = new Vue({
+        el: '#div1',
+        data: {
+            select_text: '',
+            message: '公司信息!',
+            datas: {},
+            datas_len: 0,
+            columns: {},
+            select_text_for_no: '',
+            datas_for_no: {},
+            datas_len_for_no: 0,
+            columns_for_no: {},
+            // ---------------
+            contract_name: '',
+            contract_no: '',
+            contract_amount: '',
+            signing_date: '',
+            p_name: '',
+            p_no: '',
+            first_part: '',
+            notes: '',
+            //-------------
+            //-------------
+            years: '',
+            months: '',
+            days: '',
+            messages: '',
+        },
+        created() {
+            this.InitData();
+        },
+
+        methods: {
+            getJsonLength: function (jsonData) {
+                var jsonLength = 0;
+                for (var item in jsonData) {
+                    jsonLength++;
+                }
+                return jsonLength;
+
+            },
+            InitData: function () {
+                var that = this;
+                let url = '/demo/contract/';
+                axios.get(url).then(
+                    function (response) {
+                        console.log(response.data); //看返回内容
+                        that.datas = response.data.data
+                        that.columns = response.data.columns
+                        that.datas_len = response.data.lens
+
+                        //that.classic = response.data.经典
+                        //console.log(response.data.经典); //看返回内容
+                    },
+                    function (err) {
+                    }
+                );
+
+            },
+            amb_getcontract: function () {
+                var that = this
+
+                axios.get("/demo/contract_amb_get/?text=" + this.select_text).then(
+                    function (response) {
+                        console.log(that.select_text)
+                        console.log(response.data); //看返回内容
+                        that.datas = response.data.data
+                        that.columns = response.data.columns
+                        that.datas_len = response.data.lens
+                        that.select_text = '';
+                        //that.classic = response.data.经典
+                        //console.log(response.data.经典); //看返回内容
+                    },
+                    function (err) {
+                    }
+                );
+            },
+            amb_getcontract_know: function (text) {
+                var that = this
+                this.select_text = text
+                axios.get("/demo/contract_amb_get/?text=" + this.select_text).then(
+                    function (response) {
+                        console.log(that.select_text)
+                        console.log(response.data); //看返回内容
+                        that.datas = response.data.data
+                        that.columns = response.data.columns
+                        that.datas_len = response.data.lens
+                        that.select_text = '';
+                        //that.classic = response.data.经典
+                        //console.log(response.data.经典); //看返回内容
+                    },
+                    function (err) {
+                    }
+                );
+            },
+            amb_p_no: function () {
+                var that = this
+                axios.get("/demo/p_no_amb_get/?text=" + this.select_text_for_no).then(
+                    function (response) {
+                        console.log(that.select_text_for_no)
+                        console.log(response.data); //看返回内容
+                        console.log(response.data.data); //看返回内容
+                        that.datas_for_no = response.data.data
+                        that.columns_for_no = response.data.columns
+                        that.datas_len_for_no = response.data.lens
+                        // that.select_text_for_no = '';
+                        //that.classic = response.data.经典
+                        //console.log(response.data.经典); //看返回内容
+                    },
+                    function (err) {
+                        console.log("获取失败")
+                    }
+                );
+            },
+            clear_add_contarct: function () {
+                //清空填报函数
+                var that = this;
+                that.contract_name = '',
+                    that.contract_no = '',
+                    that.contract_amount = '',
+                    that.signing_date = '',
+                    that.p_name = '',
+                    that.p_no = '',
+                    that.first_part = '',
+                    that.notes = '',
+                    that.todays = ''
+            },
+            add_contarst: function () {
+                //添加合同函数
+                var that = this;
+                var d = new Date();//获取时间
+                that.years = d.getFullYear()
+                that.months = (Number(d.getMonth()) + 1).toString()
+                that.days = d.getDate()
+                that.todays = that.years + '-' + that.months + '-' + that.days
+                console.log(this.contract_name, this.contract_no, this.contract_amount, this.signing_date, this.p_name, this.p_no, this.first_part, this.notes, this.todays)
+                if (confirm("确认插入：" +
+                    "\u000d合同名称：" + this.contract_name +
+                    '\u000d合同编号：' + this.contract_no +
+                    '\u000d合同金额：' + this.contract_amount +
+                    '\u000d签约日期：' + this.signing_date +
+                    '\u000d机场项目名：' + this.p_name +
+                    '\u000d机场项目编号：' + this.p_no +
+                    '\u000d业主公司名称：' + this.first_part +
+                    '\u000d备注：' + this.notes +
+                    '\u000d入库日期：' + this.todays)
+                ) {
+                    axios.get("/demo/add_contract", {
+                        params: {
+                            contract_name: this.contract_name,
+                            contract_no: this.contract_no,
+                            contract_amount: this.contract_amount,
+                            signing_date: this.signing_date,
+                            p_name: this.p_name,
+                            p_no: this.p_no,
+                            first_part: this.first_part,
+                            notes: this.notes,
+                            todays: this.todays,
+                        }
+                    }).then(
+                        function (response) {
+                            console.log(response.data); //看返回内容
+                            that.messages = response.data.msg
+                            alert(that.messages)
+                            if (that.messages == "提交插入数据成功") {
+                                console.log('提交成功')
+                                that.contract_name = '',
+                                    that.contract_no = '',
+                                    that.contract_amount = '',
+                                    that.signing_date = '',
+                                    that.p_name = '',
+                                    that.p_no = '',
+                                    that.first_part = '',
+                                    that.notes = '',
+                                    that.todays = ''
+                            }
+                        },
+                        function (err) {
+                            that.messages = '';
+                        }
+                    );
+                } else {
+                    alert("请继续填写");
+                    that.messages = '';
+                }
+
+            },
+            click_pnameandno: function (pname, pno) {
+                console.log('点了', pname, pno);
+                this.p_name = pname;
+                this.p_no = pno;
+            }
+        },
+    });
+</script>
+
+<script>
+    var chart_cs = echarts.init(document.getElementById('bar1'), 'infographic', {renderer: 'canvas'});
+    $(
+        function () {
+            fetchData_cs(chart_cs);
+        }
+    );
+
+    var chart_region = echarts.init(document.getElementById('bar2'), 'light', {renderer: 'canvas'});
+    $(
+        function () {
+            fetchData_region(chart_region);
+        }
+    );
+
+    var chart_province = echarts.init(document.getElementById('bar3'), 'white', {renderer: 'canvas'});
+    $(
+        function () {
+            fetchData_province(chart_province);
+        }
+    );
+
+    function fetchData_cs() {
+        $.ajax({
+            type: "GET",
+            url: "/demo/bar_cs",
+            dataType: 'json',
+            success: function (result) {
+                chart_cs.setOption(result.data);
+            }
+        });
+    }
+
+    function fetchData_region() {
+        $.ajax({
+            type: "GET",
+            url: "/demo/bar_region",
+            dataType: 'json',
+            success: function (result) {
+                chart_region.setOption(result.data);
+            }
+        });
+    }
+
+    function fetchData_province() {
+        $.ajax({
+            type: "GET",
+            url: "/demo/bar_province",
+            dataType: 'json',
+            success: function (result) {
+                chart_province.setOption(result.data);
+            }
+        });
+    }
+
+
+    var chart_geo = echarts.init(document.getElementById('geomap'), 'dark', {renderer: 'canvas'});
+    $(
+        function () {
+            fetchData_geo(chart_geo);
+        }
+    );
+
+    function fetchData_geo() {
+        $.ajax({
+            type: "GET",
+            url: "/demo/geo_api",
+            dataType: 'json',
+            success: function (result) {
+                chart_geo.setOption(result.data);
+            }
+        });
+    }
+</script>
+</body>
+</html>

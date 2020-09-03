@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Vue table</title>
+</head>
+<body>
+
+
+<div id="div1">
+    {% verbatim %}
+    <p>aaa</p>
+    <table class="table table-striped" align="center" >
+        <thead class="thead-dark">
+            <tr>
+                <th v-for="i in columns">{{i}}</th>
+            </tr>
+            <tr>
+                <th>机场名称</th>
+                <th>机场项目编号</th>
+                <th>合同名称</th>
+                <th>合同编号</th>
+                <th>签约日期</th>
+                <th>业主名称</th>
+                <th>所属省份</th>
+                <th>所属区域</th>
+                <th>机场运营日期</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="i in datas">
+                <td v-for="x in i">{{ x }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% endverbatim %}
+</div>
+
+<script>
+    var table = new Vue({
+    el: '#div1',
+    data: {
+      message: '公司信息!',
+      orderBy: [ "c1", "c2"], //可以控制字段的先后顺序，想调整列的先后顺序，改这个数组就行，可以做个性化设置
+      tableTh: {//表头的描述信息
+        c1: {
+          title: "公司名称", //还可以增加其他描述，比如width等
+          align: "left"
+        },
+        c2: {
+          title: "电话",
+          align: "right"
+        }
+      },
+      dataList: [
+        {
+          //数据包，字段名作为关键字，便于列的调整先后顺序
+          c1: "度娘2",
+          c2: "123123123"
+        },
+        {
+          c1: "企鹅2",
+          c2: "7897899787"
+        },
+        {
+          c1: "阿里爸爸2",
+          c2: "456456456"
+        }
+      ],
+      datas:{},
+        columns:{},
+    },
+
+    created: function () {
+            var that = this;
+            let url = '/demo/contract/';
+            axios.get(url).then(
+                function (response) {
+                    console.log(response.data); //看返回内容
+                    that.datas = response.data.data
+                    that.columns = response.data.columns
+                    console.log("columnss:",that.columns)
+
+                    //that.classic = response.data.经典
+                    //console.log(response.data.经典); //看返回内容
+                },
+                function (err) {
+                }
+            );
+        },
+        methods:{
+            getJsonLength:function(jsonData){
+            var jsonLength = 0;
+            for(var item in jsonData){
+            jsonLength++;
+            }
+            return jsonLength;
+
+            }
+        },
+  });
+</script>
+</body>
+</html>

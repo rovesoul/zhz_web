@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icon/clander.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/demosCSS_file/HOME_css.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>HomePage</title>
+</head>
+<body>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">项目主页</h1>
+        <hr class="my-4">
+        <p class="lead">请点击下方导航内容，进入对应页面</p>
+
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 leftDiv3">
+            <h5>{{ request.session.user_name }}欢迎回来</h5>
+            <div><a href="/demo/logout/">登出</a></div>
+            <hr class="my-4">
+            <p>在本页面中，汇集了查看常见信息的内容，目前仅为部分，如需增加能容，请提供详细需求，并发送邮件到397703547@qq.com</p>
+        </div>
+        <div class="col-sm-9">
+            {# 右侧9宽 #}
+            <div class="row databash_mother" id="databash_mother" v-cloak>
+                {% verbatim %}
+                <div class="col-md-2 col-sm-4 text-center databash">
+                    <span class="databash_title">签订合同总数</span>
+                    <div class="databash_value_div">
+                        <span class="align-middle font-weight-bold databash_value_span"
+                              v-cloak>{{ count_contrast }}</span>
+                    </div>
+                    <span class="databash_foot">个</span>
+                </div>
+                <div class="col-md-2 col-sm-4 text-center databash">
+                    <span class="databash_title">自持设备数</span>
+                    <div class="databash_value_div">
+                        <span class="align-middle font-weight-bold databash_value_span" v-cloak>{{count_device}}</span>
+                    </div>
+                    <span class="databash_foot">种</span>
+                </div>
+                <div class="col-md-2 col-sm-4 text-center databash">
+                    <span class="databash_title">统计联系人</span>
+                    <div class="databash_value_div">
+                        <span class="align-middle font-weight-bold databash_value_span" v-cloak>{{count_person}}</span>
+                    </div>
+                    <span class="databash_foot">位</span>
+                </div>
+                <div class="col-md-2 col-sm-4 text-center databash">
+                    <span class="databash_title">行业相关单位</span>
+                    <div class="databash_value_div">
+                        <span class="align-middle font-weight-bold databash_value_span"
+                              v-cloak>{{ count_company }}</span>
+                    </div>
+                    <span class="databash_foot">家</span>
+                </div>
+                <div class="col-md-2 col-sm-4 text-center databash">
+                    <span class="databash_title">统计机场</span>
+                    <div class="databash_value_div">
+                        <span class="align-middle font-weight-bold databash_value_span" v-cloak>{{ count_airport_have_weak_device }}</span>
+                    </div>
+                    <span class="databash_foot" v-cloak>个,设备{{ count_weak_device }}个</span>
+                </div>
+
+                {% endverbatim %}
+            </div>
+            <div class="row row-cols-1 row-cols-md-3">
+
+
+                {#  小块 #}
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">全国机场及合同信息</h5>
+                            <p class="card-text">
+                                <small class="text-muted">统计了全国机场的分布汇总数据、中航质参与数据、签约合同摘要等内容。</small>
+                            </p>
+                            <a href="/demo/dataspage/" class="btn btn-outline-info btn-sm" target="_blank"
+                               style="position: absolute;right: 20px;bottom: 20px">
+                                点击查看 </a>
+                        </div>
+                    </div>
+                </div>
+
+                {#  小块 #}
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">全国机场地图查看</h5>
+                            <p class="card-text">
+                                <small class="text-muted">全国机场在地图上的分布，并可查看各机场概要。</small>
+                            </p>
+                            <a href="/demo/af/" class="btn btn-outline-info btn-sm" target="_blank"
+                               style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+                        </div>
+                    </div>
+                </div>
+
+                {#  小块 #}
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">中航质设备清单</h5>
+                            <p class="card-text">
+                                <small class="text-muted">查看中航质检测设备清单。并可在页尾填加设备</small>
+                            </p>
+                            <a href="/demo/device/" class="btn btn-outline-info btn-sm" target="_blank"
+                               style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+                        </div>
+                    </div>
+                </div>
+
+                {#  小块 #}
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">行业及项目联系人</h5>
+                            <p class="card-text">
+                                <small class="text-muted">统计行业及项目间联系人信息，便于查询。</small>
+                            </p>
+                            <a href="/demo/person" class="btn btn-outline-info btn-sm" target="_blank"
+                               style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+                        </div>
+                    </div>
+                </div>
+
+                {#  小块 #}
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">各项目相关单位</h5>
+                            <p class="card-text">
+                                <small class="text-muted">统计各项目业主、施工、设计、监理等相关方公司信息，便于查询。</small>
+                            </p>
+                            <a href="/demo/person" class="btn btn-outline-info btn-sm" target="_blank"
+                               style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                {#  小块 #}
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">各机场弱电设备、机电设备统计</h5>
+                            <p class="card-text">
+                                <small class="text-muted">收集汇总各个机场项目建设中使用的弱电设备、机电设备。</small>
+                            </p>
+                            <a href="/demo/trade/" class="btn btn-outline-info btn-sm" target="_blank"
+                               style="position: absolute;right: 20px;bottom: 20px">点击查看</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                {#  小块 #}
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">考试刷题库</h5>
+                            <p class="card-text">
+                                <small class="text-muted">交通工程考试相关。</small>
+                            </p>
+                            <a href="/kaoshi/" class="btn btn-outline-info btn-sm" target="_blank"
+                               style="position: absolute;right: 20px;bottom: 20px">点击跳转</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var table = new Vue({
+        el: '#databash_mother',
+        data: {
+            down_list: [],
+            message: '公司信息!',
+            datas: {},
+            datas_len: 0,
+            columns: {},
+            check_number: 0,
+            select_text: '',
+            showCard: false,
+            count_contrast: '加载..',
+            count_device: '加载..',
+            count_person: '加载..',
+            count_company: '加载..',
+            count_airport_have_weak_device: '加载..',
+            count_weak_device: '加载..',
+            update: '',
+            years: '',
+            months: '',
+            days: '',
+            messages: '',
+        },
+
+        created() {
+            this.InitData();
+        },
+        methods: {
+            InitData: function () {
+                var that = this;
+                let url = '/demo/databash_api/';
+                axios.get(url).then(
+                    function (response) {
+                        console.log("data", response.data); //看返回内容
+                        console.log("data.data0", response.data.data[0]); //看返回内容
+                        that.count_contrast = response.data.data[0]['合同数'],
+                            that.count_device = response.data.data[0]['设备数'],
+                            that.count_person = response.data.data[0]['联系人数'],
+                            that.count_company = response.data.data[0]['行业公司数'],
+                            that.count_airport_have_weak_device = response.data.data[0]['已有弱电设备机场数'],
+                            that.count_weak_device = response.data.data[0]['机场弱电设备数'],
+                            that.datas = response.data.data
+                        that.columns = response.data.columns
+                        that.datas_len = response.data.lens
+                        that.showCard = true;
+
+
+                        //that.classic = response.data.经典
+                        //console.log(response.data.经典); //看返回内容
+                    },
+                    function (err) {
+                    }
+                );
+            },
+        },
+    });
+</script>
+</body>
+</html>
