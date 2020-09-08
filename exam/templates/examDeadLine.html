@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pagename</title>
+</head>
+<body>
+{% extends 'moban_page_base1.html' %}
+{% block body_left %}
+<p>如果这句话是中文的呢，也许可以自动换行.一串字母不行</p>
+{% endblock body_left %}
+
+{% block body_right %}
+{% for a,b,c,d,e in dictsss %}
+ 
+ <h5  class="alert alert-info" >{{ b }}</h5>
+ <p>{{ c }}</p>
+ <p>{{ d }}</p>
+ <p>{{ e }}</p>
+{% endfor %}
+{% endblock body_right %}
+</body>
+</html>

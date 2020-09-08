@@ -39,3 +39,4 @@ def get_count_contract():
 
     list=[len(count_contrast),len(devicecount),len(count_contact_person),len(count_companys_contract)]
     return list
+

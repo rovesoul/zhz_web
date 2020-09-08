@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^ggjc_api/$', views.get_ggjc_question, name='按id拿题页面'),
     url(r'^jtgc_api/$', views.get_jtgc_question, name='按id拿题页面'),
     url(r'^doc_api/$', views.get_document, name='doc 的 api'),
+    url(r'^deadline/$', views.DeadLinePage, name='倒计时页面'),
 
 
 
