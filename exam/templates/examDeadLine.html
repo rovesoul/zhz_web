@@ -11,13 +11,24 @@
 {% endblock body_left %}
 
 {% block body_right %}
-{% for a,b,c,d,e in dictsss %}
- 
- <h5  class="alert alert-info" >{{ b }}</h5>
- <p>{{ c }}</p>
- <p>{{ d }}</p>
- <p>{{ e }}</p>
+<div class="row row-cols-1 row-cols-md-3">
+{% for a,name,dates,where,class,leftdays in dictsss %}
+    <div class="col mb-4 ">
+        <div class=" card text-white bg-warning h-100 " style="max-width: 18rem;">
+            <div class="card-header">{{ name }}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ dates }}</h5>
+                <h1>还有<span style="color:red;">{{ leftdays }}</span>天</h1>
+                <p class="card-text">{{ where }}</p>
+                <p class="card-text">{{ class }}</p>
+            </div>
+        </div>
+    </div>
+    
+    
+
 {% endfor %}
+</div>
 {% endblock body_right %}
 </body>
 </html>

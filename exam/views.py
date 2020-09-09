@@ -158,9 +158,17 @@ def DeadLinePage(request):
     all_exam= models.Exam_end_line.objects.all()
     # # 考试名称
     examName=[i for i in all_exam.values_list()]
+    examName_toface=[]
+    today = datetime.date.today()
+    for item in examName:
+        item=list(item)
+        dead=item[2]-today
+        item.append(dead.days)
+        examName_toface.append(item)
+        print(item)
     # # 考试日期
     # # examDate=all_exam.exam_date
-    print(examName)
+    # print(examName)
     
-    return render(request, "examDeadLine.html",{'dictsss':examName })
+    return render(request, "examDeadLine.html",{'dictsss':examName_toface })
     # return HttpResponse('信息获取错误，缺少type字段或字段错误')
