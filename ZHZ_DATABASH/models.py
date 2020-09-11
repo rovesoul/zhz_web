@@ -13,10 +13,12 @@ class User(models.Model):
         ('male', "男"),
         ('female',"女"),
     )
-    name = models.CharField(unique=True,max_length=200,verbose_name='用户名')
+    name = models.CharField(unique=True,max_length=200,verbose_name='登录用户名')
+    chinesename = models.CharField(unique=True,max_length=200,null=True,blank=True,verbose_name='中文名')
     password = models.CharField(max_length=200,verbose_name='密码')
-    email = models.CharField(unique=True,max_length=200,verbose_name='邮箱')
-    sex = models.CharField(max_length=20,choices=gender,verbose_name='性别')
+    email = models.CharField(unique=True,max_length=200,null=True,blank=True,verbose_name='邮箱')
+    phone = models.CharField(unique=True,max_length=25,null=True,blank=True,verbose_name='电话')
+    sex = models.CharField(max_length=20,choices=gender,null=True,blank=True,verbose_name='性别')
     c_time = models.DateTimeField(auto_now_add=True,verbose_name='注册时间')
     def __str__(self):
         return self.__doc__+':'+self.name
@@ -81,13 +83,14 @@ class Contracts(models.Model):
     signing_date = models.DateField(auto_now_add=False, null=True,verbose_name='签订日期')
     p_name = models.CharField(unique=False, max_length=200, verbose_name='对应机场名称')
     p_no = models.IntegerField(unique=False,verbose_name='对应机场编号')
-    person_name = models.CharField(unique=False,null=True, max_length=200, default="-",verbose_name='联系人姓名')
-    person_phone = models.CharField(max_length=20,null=True,default="-", verbose_name='联系人电话')
-    sex = models.CharField(max_length=20, choices=gender, null=True,verbose_name='联系人性别')
-    person_title = models.CharField(max_length=100, null=True,verbose_name='联系人职位信息')
+    contract_content = models.TextField(max_length=2000, null=True,blank=True,verbose_name='合同范围内容')
+    person_name = models.CharField(unique=False,null=True,blank=True, max_length=200, verbose_name='联系人姓名')
+    person_phone = models.CharField(max_length=20,null=True,blank=True,verbose_name='联系人电话')
+    sex = models.CharField(max_length=20, choices=gender,null=True,blank=True,verbose_name='联系人性别')
+    person_title = models.CharField(max_length=100, null=True,blank=True,verbose_name='联系人职位信息')
     first_party = models.CharField(max_length=200, null=True,verbose_name='甲方单位')
-    notes = models.TextField(max_length=200, null=True,verbose_name='备注信息')
-    c_time = models.DateField(auto_now_add=True, null=True,verbose_name='登记时间')
+    notes = models.TextField(max_length=200, null=True,blank=True,verbose_name='备注信息')
+    c_time = models.DateField(auto_now_add=True,null=True,blank=True,verbose_name='登记时间')
 
     def __str__(self):
         return self.__doc__ + ':' + self.p_name
@@ -129,9 +132,9 @@ class Device(models.Model):
     d_type = models.CharField(unique=False, max_length=200, null=True,verbose_name='设备型号')
     quantity = models.CharField(unique=False, max_length=18, null=True,verbose_name='设备数量')
     append = models.CharField(unique=False, max_length=255, null=True,verbose_name='设备附件')
-    usefor = models.TextField(max_length=200, null=True,verbose_name='测量目的')
-    standard = models.TextField(max_length=200, null=True,verbose_name='适应标准')
-    manual = models.TextField(max_length=4000, null=True,verbose_name='设备说明')
+    usefor = models.TextField(max_length=200, null=True,blank=True,verbose_name='测量目的')
+    standard = models.TextField(max_length=200, null=True,blank=True,verbose_name='适应标准')
+    manual = models.TextField(max_length=4000, null=True,blank=True,verbose_name='设备说明')
     ups_time = models.DateField( null=True,verbose_name='注册时间')
 
     def __str__(self):
@@ -146,14 +149,14 @@ class TradeContracts(models.Model):
 
     p_name = models.CharField(unique=True, max_length=200, verbose_name='机场项目名称')
     company_name = models.CharField(unique=False, max_length=200, verbose_name='公司名称')
-    contract_name = models.CharField(unique=False,null=True, max_length=200, verbose_name='合同名称')
-    contract_amount = models.DecimalField(unique=False, max_digits=12, decimal_places=2, null=True,verbose_name='合同金额')
-    contract_content = models.TextField(max_length=800, null=True,verbose_name='合同范围内容')
-    person_name = models.CharField(unique=False, null=True,max_length=200,  verbose_name='合同负责人名字')
-    tenderr=models.CharField(unique=False, max_length=200, verbose_name='招标人')
-    contract_date = models.DateField(auto_now_add=False, null=True,verbose_name='签订日期')
-    location = models.CharField(unique=False, null=True, max_length=200, verbose_name='公司地址')
-    chairman = models.CharField(unique=False, null=True, max_length=200,  verbose_name='法人/董事长/老大')
+    contract_name = models.CharField(unique=False,null=True,blank=True, max_length=200, verbose_name='合同名称')
+    contract_amount = models.DecimalField(unique=False, max_digits=12, decimal_places=2, null=True,blank=True,verbose_name='合同金额')
+    contract_content = models.TextField(max_length=2000, null=True,blank=True,verbose_name='合同范围内容')
+    person_name = models.CharField(unique=False, null=True,blank=True,max_length=200,  verbose_name='合同负责人名字')
+    tenderr=models.CharField(unique=False, null=True,blank=True,max_length=200, verbose_name='招标人')
+    contract_date = models.DateField(auto_now_add=False,null=True,blank=True,verbose_name='签订日期')
+    location = models.CharField(unique=False,null=True,blank=True, max_length=200, verbose_name='公司地址')
+    chairman = models.CharField(unique=False, null=True,blank=True, max_length=200,  verbose_name='法人/董事长/老大')
     c_time = models.DateField(null=True,default='2020-08-01',verbose_name='记录时间')
 
     def __str__(self):
@@ -179,13 +182,13 @@ class ProjectDevice(models.Model):
     p_name = models.CharField(unique=False, max_length=200, verbose_name='机场名称')
     sys_name = models.CharField(unique=False, choices=systems,max_length=30, verbose_name='系统名称')
     d_name = models.CharField(unique=False, max_length=200, verbose_name='设备名')
-    d_type = models.CharField(unique=False, max_length=200,null=True,verbose_name='设备型号')
-    d_quantity = models.CharField(unique=False, max_length=18,null=True, verbose_name='设备数量')
-    madeCountryClass = models.CharField(unique=False, max_length=8,choices=madeCountry, null=True, verbose_name='made by')
-    madeCountry = models.CharField(unique=False, max_length=18,null=True,verbose_name='制造国家名')
-    set_date = models.DateField(auto_now_add=True,null=True,verbose_name='大概安装年月')
-    alarmDate = models.DateField(auto_now_add=True,null=True, verbose_name='提醒年月')
-    alarmLeft = models.DecimalField(unique=False, max_digits=2, decimal_places=1,null=True,verbose_name='安装后计时年')
+    d_type = models.CharField(unique=False, max_length=200,null=True,blank=True,verbose_name='设备型号')
+    d_quantity = models.CharField(unique=False, max_length=18,null=True,blank=True, verbose_name='设备数量')
+    madeCountryClass = models.CharField(unique=False, max_length=8,choices=madeCountry, null=True,blank=True, verbose_name='made by')
+    madeCountry = models.CharField(unique=False, max_length=18,null=True,blank=True,verbose_name='制造国家名')
+    set_date = models.DateField(auto_now_add=True,null=True,blank=True,verbose_name='大概安装年月')
+    alarmDate = models.DateField(auto_now_add=True,null=True,blank=True, verbose_name='提醒年月')
+    alarmLeft = models.DecimalField(unique=False, max_digits=2, decimal_places=1,null=True,blank=True,verbose_name='安装后计时年')
     c_time = models.DateTimeField(auto_now_add=True, verbose_name='记录时间')
 
     def __str__(self):

@@ -5,9 +5,9 @@ class GGJC_question(models.Model):
     id = models.AutoField(primary_key=True)
     question_title = models.CharField(max_length=225,null=False)
     q_count = models.CharField(max_length=20,null=True)
-    answer = models.CharField(max_length=225,null=False)
-    where = models.CharField(max_length=128,null=True,blank='')
-    page = models.CharField(max_length=128,null=True,blank='')
+    answer = models.CharField(max_length=225,null=True,blank=True,)
+    where = models.CharField(max_length=128,null=True,blank=True,)
+    page = models.CharField(max_length=128,null=True,blank=True,)
 
 
     def __str__(self):
@@ -20,10 +20,10 @@ class GGJC_question(models.Model):
 class JTGC_question(models.Model):
     id = models.AutoField(primary_key=True)
     question_title = models.CharField(max_length=225,null=False)
-    q_count = models.CharField(max_length=20,null=True)
+    q_count = models.CharField(max_length=20,null=True,blank=True,)
     answer = models.CharField(max_length=225,null=False)
-    where = models.CharField(max_length=128,null=True,blank='')
-    page = models.CharField(max_length=128,null=True,blank='')
+    where = models.CharField(max_length=128,null=True,blank=True,)
+    page = models.CharField(max_length=128,null=True,blank=True,)
 
 
     def __str__(self):

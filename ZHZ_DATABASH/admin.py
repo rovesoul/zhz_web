@@ -4,9 +4,9 @@ from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,Trad
 @admin.register(User)
 class USER(admin.ModelAdmin):
     '''设置显示字段,这是自己加的，如果不需要可以在下边register中删掉'''
-    list_display = ('id','name','password','email','sex','c_time')
-    search_fields = ('id','name','password','email','sex','c_time')  #可搜索字段
-    list_editable = ('name','password','email','sex',) #默认可编辑字段
+    list_display = ('id','name','password','email','sex','c_time','phone')
+    search_fields = ('id','name','password','email','sex','c_time','phone')  #可搜索字段
+    list_editable = ('name','password','phone','email','sex') #默认可编辑字段
     ordering = ('name',)
 
 @admin.register(Project_Detail)

@@ -1,10 +1,10 @@
-.leftDiv3{
+.leftDiv3 {
     padding: 10px;
 }
 
 .databash_mother {
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 3px;
     background-color: ghostwhite;
     border-radius: 5px;
 }
@@ -12,15 +12,15 @@
 .databash {
     background-color: whitesmoke;
     padding: 2px;
-    margin-left: 6px;
-    margin-right: 6px;
+    margin-left: 3px;
+    margin-right: 3px;
     margin-top: 5px;
     margin-bottom: 5px;
     border-radius: 5px
 }
 
 .databash_value_span {
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .databash_title {
@@ -28,8 +28,8 @@
 }
 
 .databash_value_div {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     text-align: center;
 }
 
@@ -39,7 +39,9 @@
     color: #666;
 }
 
+
 /* 下边卡片的style */
+
 .card-body {
     height: 200px;
 }

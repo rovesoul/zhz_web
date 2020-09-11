@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/DATABASH_CSS/ZHZHome.css">
-    <title>选择页面</title>
+    <title>看板首页</title>
 
 </head>
-<body>
 {% extends 'moban_page_base1.html' %}
+<body>
 {% block subtitle %}
 <p>本页关注统计数据，点击超级链接可进入具体页面</p>
 {% endblock subtitle %}
@@ -18,6 +18,16 @@
 
 {% block body_right %}
 <div class="row databash_mother" id="databash_mother" >
+
+    <div class="col-md-2 col-sm-4 text-center databash">
+        <span class="databash_title">库中机场数</span>
+        <div class="databash_value_div">
+            <span class="align-middle font-weight-bold databash_value_span"
+                  >{{ count_airplane_project }}</span>
+        </div>
+        <span class="databash_foot">个</span>
+    </div>
+
     <div class="col-md-2 col-sm-4 text-center databash">
         <span class="databash_title">签订合同总数</span>
         <div class="databash_value_div">
@@ -26,6 +36,7 @@
         </div>
         <span class="databash_foot">个</span>
     </div>
+
     <div class="col-md-2 col-sm-4 text-center databash">
         <span class="databash_title">自持设备数</span>
         <div class="databash_value_div">
