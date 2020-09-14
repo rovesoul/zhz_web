@@ -19,7 +19,11 @@ def device_info(request):
     return HttpResponse("设备信息表")
 
 def person_info(request):
-    return HttpResponse("行业联系人表")
+    persons = models.Person.objects.all()
+    print(persons.values())
+    return render(request, 'person.html', {'person':persons.values_list()})
+    # 目前是失败的
+    # return HttpResponse("行业联系人表")
 
 def airport_weak_device(request):
     return HttpResponse("各机场弱电设备，包含涵盖机场数、弱电设备数、-180--365d提示内容")
