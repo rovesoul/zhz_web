@@ -60,12 +60,37 @@
         <span class="databash_foot">家</span>
     </div>
     <div class="col-md-2 col-sm-4 text-center databash">
-        <span class="databash_title">统计机场</span>
+        <span class="databash_title">统计各机场</span>
+        <div class="databash_value_div">
+            <span class="align-middle font-weight-bold databash_value_span" >{{ count_airport_device }}</span>
+        </div>
+        <span class="databash_foot" >个设备信息</span>
+    </div>
+
+    <div class="col-md-2 col-sm-4 text-center databash">
+        <span class="databash_title">统计设备涵盖</span>
         <div class="databash_value_div">
             <span class="align-middle font-weight-bold databash_value_span" >{{ count_airport_have_weak_device }}</span>
         </div>
-        <span class="databash_foot" >个,设备{{ count_airport_device }}个</span>
+        <span class="databash_foot" >个机场</span>
     </div>
+
+    <div class="col-md-2 col-sm-4 text-center databash">
+        <span class="databash_title">一年内需预警</span>
+        <div class="databash_value_div">
+            <span class="align-middle font-weight-bold databash_value_span" >{{ alarm_airport_count }}</span>
+        </div>
+        <span class="databash_foot" >个机场</span>
+    </div>
+
+    <div class="col-md-2 col-sm-4 text-center databash">
+        <span class="databash_title">统计行李厂商</span>
+        <div class="databash_value_div">
+            <span class="align-middle font-weight-bold databash_value_span" >{{ count_luggage }}</span>
+        </div>
+        <span class="databash_foot" >家</span>
+    </div>
+
 
 </div>
 

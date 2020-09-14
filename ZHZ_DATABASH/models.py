@@ -146,7 +146,6 @@ class Device(models.Model):
 
 class TradeContracts(models.Model):
     """行业contracts合同信息"""
-
     p_name = models.CharField(unique=True, max_length=200, verbose_name='机场项目名称')
     company_name = models.CharField(unique=False, max_length=200, verbose_name='公司名称')
     contract_name = models.CharField(unique=False,null=True,blank=True, max_length=200, verbose_name='合同名称')
@@ -179,6 +178,7 @@ class ProjectDevice(models.Model):
         ('外国', "外国"),
         ('未知', "未知"),
     )
+    id = models.AutoField(primary_key=True)
     p_name = models.CharField(unique=False, max_length=200, verbose_name='机场名称')
     sys_name = models.CharField(unique=False, choices=systems,max_length=30, verbose_name='系统名称')
     d_name = models.CharField(unique=False, max_length=200, verbose_name='设备名')
@@ -197,3 +197,41 @@ class ProjectDevice(models.Model):
     class Meta:
         ordering = ['p_name','sys_name','-c_time']
         verbose_name_plural = '各机场设备统计'
+
+
+# luggage
+class LuggageCompany(models.Model):
+    """行李设备公司信息
+    """
+    systems = (
+        ('行李', "行李"),
+    )
+    madeCountry=(
+        ('中国', "中国"),
+    )
+    taxTypes = (
+        ('小规模纳税人', "一般纳税人"),
+    )
+    company_name = models.CharField(unique=True, max_length=200, verbose_name='公司名称-必填')
+    legal_person = models.CharField(unique=False, max_length=100,null=True,blank=True, verbose_name='法人-必填')
+    registered_money = models.CharField(unique=False, max_length=200,null=True,blank=True, verbose_name='注册资本')
+    establishDate = models.DateField(auto_now_add=False, null=True, blank=True, verbose_name='成立日期')
+    address = models.CharField(unique=False, max_length=255,null=True,blank=True, verbose_name='公司地址')
+    phone   = models.CharField(unique=False, max_length=25, null=True, blank=True, verbose_name='联系电话')
+    key_person = models.CharField(unique=False, null=True, blank=True, max_length=200, verbose_name='主要人员')
+    social_credit_code = models.CharField(unique=True, null=True, blank=True, max_length=200, verbose_name='统一社会信用代码')
+    taxName = models.CharField(unique=True, null=True, blank=True, max_length=200, verbose_name='纳税人名称')
+    taxID = models.CharField(unique=True, null=True, blank=True, max_length=200, verbose_name='纳税人识别号')
+    taxType = models.CharField(unique=True, choices=taxTypes,null=True, blank=True, max_length=60, verbose_name='纳税人类型')
+    patents_name = models.CharField(unique=False,null=True, blank=True, max_length=200, verbose_name='专利名称')
+    certificates = models.CharField(unique=False,null=True, blank=True, max_length=200, verbose_name='资质证书')
+    business_scope = models.TextField(max_length=2500, null=True,blank=True,verbose_name='经营范围')
+    product_intro = models.TextField(max_length=2500, null=True,blank=True,verbose_name='产品介绍')
+    c_time = models.DateTimeField(auto_now_add=True, verbose_name='记录时间')
+
+    def __str__(self):
+        return self.__doc__ + ':' + self.company_name
+
+    class Meta:
+        ordering = ['-c_time','company_name']
+        verbose_name_plural = '行李设备厂家'

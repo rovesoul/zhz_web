@@ -1,12 +1,12 @@
 from django.contrib import admin
-from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,TradeContracts,Device,Person
+from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,TradeContracts,Device,Person,LuggageCompany
 # Register your models here.
 @admin.register(User)
 class USER(admin.ModelAdmin):
     '''设置显示字段,这是自己加的，如果不需要可以在下边register中删掉'''
-    list_display = ('id','name','password','email','sex','c_time','phone')
-    search_fields = ('id','name','password','email','sex','c_time','phone')  #可搜索字段
-    list_editable = ('name','password','phone','email','sex') #默认可编辑字段
+    list_display = ('id','chinesename','name','password','email','sex','c_time','phone')
+    search_fields = ('id','chinesename','name','password','email','sex','c_time','phone')  #可搜索字段
+    list_editable = ('name','chinesename','password','phone','email','sex') #默认可编辑字段
     ordering = ('name',)
 
 @admin.register(Project_Detail)
@@ -49,8 +49,20 @@ class Person(admin.ModelAdmin):
     list_filter = ('title', 'company','p_name','sex')  # 过滤器
     date_hierarchy = 'ups_time'
 
+@admin.register(LuggageCompany)
+class Luggage(admin.ModelAdmin):
+    '''设置显示字段,这是自己加的，如果不需要可以在下边register中删掉'''
+    list_display = ('company_name','legal_person','registered_money','address','phone','key_person','certificates','establishDate')
+    search_fields = ('company_name','legal_person','address','phone','key_person','certificates','establishDate',)  #可搜索字段
+    list_editable = ('phone','key_person') #默认可编辑字段
+    ordering = ('-c_time','company_name',)
+    list_filter = ('company_name','address','key_person','certificates','establishDate')  # 过滤器
+    date_hierarchy = 'c_time'
+
+
 
 # 以下未编辑
 admin.site.register(ProjectDevice)
 admin.site.register(TradeContracts)
+
 
