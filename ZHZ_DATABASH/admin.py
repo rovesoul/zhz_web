@@ -4,9 +4,9 @@ from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,Trad
 @admin.register(User)
 class USER(admin.ModelAdmin):
     '''设置显示字段,这是自己加的，如果不需要可以在下边register中删掉'''
-    list_display = ('id','chinesename','name','password','email','sex','c_time','phone')
-    search_fields = ('id','chinesename','name','password','email','sex','c_time','phone')  #可搜索字段
-    list_editable = ('name','chinesename','password','phone','email','sex') #默认可编辑字段
+    list_display = ('chinesename','name','password','email','sex','c_time','phone')
+    search_fields = ('chinesename','name','password','email','sex','c_time','phone')  #可搜索字段
+    list_editable = ('name','password','phone','email','sex') #默认可编辑字段
     ordering = ('name',)
 
 @admin.register(Project_Detail)
@@ -42,11 +42,11 @@ class ZHZContracts(admin.ModelAdmin):
 @admin.register(Person)
 class Person(admin.ModelAdmin):
     '''设置显示字段,这是自己加的，如果不需要可以在下边register中删掉'''
-    list_display = ('id','name','phone','sex','title','company','ups_time','p_name','p_no')
+    list_display = ('name','phone','sex','title','company','ups_time','p_name','p_no')
     search_fields = ('name','phone','sex','title','company','ups_time','p_name','p_no')  #可搜索字段
     list_editable = ('phone','sex','title','company','p_name','p_no') #默认可编辑字段
     ordering = ('-ups_time','name',)
-    list_filter = ('title', 'company','p_name','sex')  # 过滤器
+    list_filter = ('p_name', 'company','title','sex')  # 过滤器
     date_hierarchy = 'ups_time'
 
 @admin.register(LuggageCompany)
