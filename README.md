@@ -20,8 +20,10 @@
 - <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3567312495,1960505430&fm=26&gp=0.jpg"  width="25px" >[Vue.js中文文档](https://vuejs.bootcss.com/guide/) | [Vue.js Org官网](https://cn.vuejs.org/)
 - <img src="http://www.axios-js.com/logo.svg"  width="22px" height="20px">[axios](http://www.axios-js.com/zh-cn/docs/)
 - <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1674005704,2652323496&fm=26&gp=0.jpg"  width="25px" >[pyecharts](http://gallery.pyecharts.org/#/README)
-
-
+- [笔记Django操作](https://github.com/rovesoul/Document-Collection/blob/master/Django%20Do%20order.md)
 
  ### 引入缘由
  为了节省服务器空间，均采用类似`cdn`引入方式
+ 
+ ## 数据库包括
+ - 友情链接

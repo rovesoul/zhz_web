@@ -235,3 +235,26 @@ class LuggageCompany(models.Model):
     class Meta:
         ordering = ['-c_time','company_name']
         verbose_name_plural = '行李设备厂家'
+
+
+# websit
+class FriendWebsit(models.Model):
+    """友情链接
+    """
+    web_types = (
+        ('公司用', "公司用"),
+        ('自己用', "自己用"),
+        ('娱乐用', "娱乐用"),
+    )
+    id = models.AutoField(primary_key=True)
+    websit_name = models.CharField(unique=True, max_length=150, verbose_name='网站名称')
+    websit_link = models.CharField(unique=True, max_length=200,null=True,blank=True, verbose_name='网址')
+    webType = models.CharField(unique=False, choices=web_types, null=True, blank=True, max_length=60,verbose_name='网站性质')
+    webDoc = models.CharField(unique=False, max_length=255, null=True, blank=True, verbose_name='介绍')
+    c_time = models.DateTimeField(auto_now_add=True, verbose_name='记录时间')
+    def __str__(self):
+        return self.__doc__ + ':' + self.websit_name
+
+    class Meta:
+        ordering = ['-c_time','websit_name']
+        verbose_name_plural = '友情链接'

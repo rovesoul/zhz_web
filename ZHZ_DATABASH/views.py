@@ -10,6 +10,7 @@ def choice(request):
     if not request.session.get("is_login", None):
         return redirect("/demo/login")
     lists = get_count_contract()
+    FridenWeb = models.FriendWebsit.objects.all()
     plugintext={
         'pagename':'ZHZ-数据信息统计',
         'page_title': 'ZHZ-数据信息统计',
@@ -24,7 +25,9 @@ def choice(request):
         'count_airport_device':lists[6],
         'alarm_airport_count':lists[7],
         'count_luggage': lists[8],
+        'FriendWeb':FridenWeb.values_list(),
     }
+
     return render(request, 'ZHZHome.html', plugintext)
 
 def get_count_contract():

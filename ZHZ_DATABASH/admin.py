@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,TradeContracts,Device,Person,LuggageCompany
+from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,TradeContracts,Device,Person,LuggageCompany,FriendWebsit
 # Register your models here.
 @admin.register(User)
 class USER(admin.ModelAdmin):
@@ -59,7 +59,15 @@ class Luggage(admin.ModelAdmin):
     list_filter = ('company_name','address','key_person','certificates','establishDate')  # 过滤器
     date_hierarchy = 'c_time'
 
-
+@admin.register(FriendWebsit)
+class FriendWebs(admin.ModelAdmin):
+    '''设置显示字段,这是自己加的，如果不需要可以在下边register中删掉'''
+    list_display = ('websit_name','websit_link','webType','c_time','webDoc')
+    search_fields = ('websit_name','websit_link','webType','c_time','webDoc',)  #可搜索字段
+    # list_editable = ('phone','key_person') #默认可编辑字段
+    ordering = ('-c_time','websit_name',)
+    list_filter = ('websit_name','webType')  # 过滤器
+    date_hierarchy = 'c_time'
 
 # 以下未编辑
 admin.site.register(ProjectDevice)
