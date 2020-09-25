@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" type="image/png" sizes="20x20" href="/static/icon/plane.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="icon" type="image/png" sizes="20x20" href="/static/icon/plane.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>Title</title>
 </head>
 <body>
-<footer id="footer" style="background-color: lightgray;padding: 10px;">
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-12 order-2 col-md-8 order-md-1">
-                <h5 class="d-inline-block">相关网站</h5>
-                <small id="copyright" class="d-inline-block text-muted"></small>
-                <ul class="list-unstyled">
-                    {% for item in FriendWeb %}
-                      <li class="beian"><a class="beian" href="{{ item.2 }}" target="_blank" rel="nofollow">{{ item.1 }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="col-6 order-1 col-md-2 order-md-2">
-                <h5>维护相关</h5>
-                <ul class="list-unstyled">
-                    <li><a class="text-muted" href="">None</a></li>
-                    <li><a class="text-muted" href="">wx：rovesoul2 </a></li>
-                </ul>
-            </div>
-            <div class="col-6 order-1 col-md-2 order-md-2">
-                <h5>Resources</h5>
-                <ul class="list-unstyled">
-                    <li><a class="text-muted" href="">Right 2020</a></li>
-                </ul>
+<div class="fixed-bottom">
+    <footer id="footer" style="background-color: lightgray;padding: 10px;">
+        <div class="container-fluid ">
+            <div class="row justify-content-between">
+                <div class="col-12 order-2 col-md-8 order-md-1">
+                    <h5 class="d-inline-block">相关网站</h5>
+                    <small id="copyright" class="d-inline-block text-muted"></small>
+                    <ul class="list-unstyled">
+                        {% for item in FriendWeb %}
+                            <li class="beian"><a class="beian" href="{{ item.2 }}" target="_blank"
+                                                 rel="nofollow">{{ item.1 }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-6 order-1 col-md-2 order-md-2">
+                    <h5>维护相关</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="text-muted" href="">None</a></li>
+                        <li><a class="text-muted" href="">wx：rovesoul2 </a></li>
+                    </ul>
+                </div>
+                <div class="col-6 order-1 col-md-2 order-md-2">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="text-muted" href="">Right 2020</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+</div>
 </body>
 </html>
