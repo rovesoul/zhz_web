@@ -236,6 +236,21 @@ class LuggageCompany(models.Model):
         ordering = ['-c_time','company_name']
         verbose_name_plural = '行李设备厂家'
 
+# big thing end date
+class Thing_end_line(models.Model):
+    id = models.AutoField(primary_key=True, blank=True)
+    thing_name = models.CharField(max_length=225, verbose_name='事件名称')
+    thing_date = models.DateField(auto_now_add=False, verbose_name='截至发生日期', null=True, blank=True)
+    thing_location = models.CharField(max_length=20, null=True, blank=True, verbose_name='事件地点')
+    thing_class = models.CharField(max_length=20, null=True, blank=True, verbose_name='事件分类')
+
+    def __str__(self):
+        return self.__doc__ + ':' + self.thing_name
+
+    class Meta:
+        ordering = ['thing_date']
+        verbose_name_plural = '事件及时间设定'
+
 
 # websit
 class FriendWebsit(models.Model):
