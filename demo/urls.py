@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
-from . import views, sql_views,view_login_out_register
+from . import views, sql_views, view_login_out_register
 
 """demo 的url"""
 
@@ -41,6 +41,5 @@ urlpatterns = [
     url(r'^$', views.home, name='主页'),
     url(r'^login/$', view_login_out_register.login, name='登录页面'),
     url(r'^logout/$', view_login_out_register.logout, name='登出页面'),
-
 
 ]
