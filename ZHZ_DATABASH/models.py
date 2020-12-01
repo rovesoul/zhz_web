@@ -77,6 +77,11 @@ class Contracts(models.Model):
         ('female', "女"),
     )
 
+    proofs = (
+        ('有', "有"),
+        ('无', "无"),
+    )
+
     name = models.CharField(unique=True, max_length=200, verbose_name='合同名称')
     no = models.CharField(unique=True, max_length=200, verbose_name='合同编号')
     amount = models.DecimalField(unique=False, max_digits=12,decimal_places=2,verbose_name='合同金额')
@@ -86,6 +91,8 @@ class Contracts(models.Model):
     contract_content = models.TextField(max_length=2000, null=True,blank=True,verbose_name='合同范围内容')
     person_name = models.CharField(unique=False,null=True,blank=True, max_length=200, verbose_name='联系人姓名')
     person_phone = models.CharField(max_length=20,null=True,blank=True,verbose_name='联系人电话')
+    manager_name = models.CharField(unique=False, null=True, blank=True, max_length=200, verbose_name='项目经理')
+    proof = models.CharField(max_length=20, choices=proofs, null=True, blank=True, verbose_name='项目经理业绩证明')
     sex = models.CharField(max_length=20, choices=gender,null=True,blank=True,verbose_name='联系人性别')
     person_title = models.CharField(max_length=100, null=True,blank=True,verbose_name='联系人职位信息')
     first_party = models.CharField(max_length=200, null=True,verbose_name='甲方单位')
