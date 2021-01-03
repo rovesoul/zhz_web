@@ -82,9 +82,16 @@ class Contracts(models.Model):
         ('无', "无"),
     )
 
+    project_close = (
+        ('是', "是"),
+        ('否', "否"),
+    )
+
     name = models.CharField(unique=True, max_length=200, verbose_name='合同名称')
     no = models.CharField(unique=True, max_length=200, verbose_name='合同编号')
     amount = models.DecimalField(unique=False, max_digits=12,decimal_places=2,verbose_name='合同金额')
+    aready_get_income = models.DecimalField(unique=False,null=True,blank=True, max_digits=12,decimal_places=2,verbose_name='总收款金额')
+    project_status = models.CharField(max_length=10, choices=project_close, null=True, blank=True, verbose_name='项目是否关闭')
     signing_date = models.DateField(auto_now_add=False, null=True,verbose_name='签订日期')
     p_name = models.CharField(unique=False, max_length=200, verbose_name='对应机场名称')
     p_no = models.IntegerField(unique=False,verbose_name='对应机场编号')
