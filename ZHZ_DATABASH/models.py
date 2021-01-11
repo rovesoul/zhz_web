@@ -95,12 +95,12 @@ class Contracts(models.Model):
     )
 
 
-    name = models.CharField(unique=True, max_length=200, verbose_name='合同名称')
+    name = models.CharField(unique=False, max_length=200,null=True,blank=True, verbose_name='合同名称')
     no = models.CharField(unique=True, max_length=200, verbose_name='合同编号')
     amount    = models.DecimalField(unique=False, max_digits=12,decimal_places=2,verbose_name='合同金额')
     add_money = models.DecimalField(unique=False, max_digits=12,decimal_places=2,null=True,blank=True)  #,verbose_name='补充协议金额'
     aready_get_income = models.DecimalField(unique=False,null=True,blank=True, max_digits=12,decimal_places=2,verbose_name='已收款金额')
-    project_status = models.CharField(unique=True, max_length=200,  null=True, blank=True, verbose_name='项目当前状态')
+    project_status = models.CharField(unique=False, max_length=200,  null=True, blank=True, verbose_name='项目当前状态')
     project_closed = models.CharField(max_length=10, choices=project_close,  null=True, blank=True, verbose_name='项目是否闭合')
     confirm_paper = models.CharField(max_length=100, choices=confirm_papers,null=True,blank=True,verbose_name='中标通知书')
     proof          = models.CharField(max_length=20, choices=proofs,         null=True, blank=True, verbose_name='项目经理业绩证明')
