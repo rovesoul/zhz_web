@@ -32,11 +32,11 @@ class DEVICE(admin.ModelAdmin):
 @admin.register(Contracts)
 class ZHZContracts(admin.ModelAdmin):
     '''设置显示字段,这是自己加的，如果不需要可以在下边register中删掉'''
-    list_display = ('name','no','amount','add_money','aready_get_income','project_status','signing_date','p_name','p_no','manager_name','proof','contract_content','first_party','c_time',)
-    search_fields = ('name','no','amount','add_money','signing_date','p_name','p_no','project_status','manager_name','proof','contract_content','first_party','c_time',)  #可搜索字段
-    list_editable = ('first_party','aready_get_income','project_status','manager_name','proof',) #默认可编辑字段
+    list_display = ('name','no','amount','add_money','aready_get_income','project_status','signing_date','p_name','p_no','manager_name','proof','project_status','project_closed','contract_content','first_party','c_time',)
+    search_fields = ('name','no','amount','signing_date','p_name','p_no','project_status','manager_name','proof','project_status','project_closed','contract_content','first_party','c_time',)  #可搜索字段
+    list_editable = ('first_party','aready_get_income','project_status','project_closed','manager_name','proof','project_closed',) #默认可编辑字段
     ordering = ('no','signing_date')
-    list_filter = ('p_name','add_money', 'first_party','manager_name','project_status','proof',)  # 过滤器
+    list_filter = ('p_name','first_party','manager_name','project_status','project_closed','proof',)  # 过滤器
     date_hierarchy = 'signing_date'
 
 @admin.register(Person)

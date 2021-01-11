@@ -90,19 +90,20 @@ class Contracts(models.Model):
     )
     # 中标通知书
     confirm_papers = (
-        ('是', "是"),
-        ('否', "否"),
+        ('有', "有"),
+        ('无', "无"),
     )
 
 
     name = models.CharField(unique=True, max_length=200, verbose_name='合同名称')
     no = models.CharField(unique=True, max_length=200, verbose_name='合同编号')
-    amount = models.DecimalField(unique=False, max_digits=12,decimal_places=2,verbose_name='合同金额')
-    add_money = models.DecimalField(unique=False, max_digits=12,decimal_places=2,null=True,blank=True,verbose_name='补充协议金额')
+    amount    = models.DecimalField(unique=False, max_digits=12,decimal_places=2,verbose_name='合同金额')
+    add_money = models.DecimalField(unique=False, max_digits=12,decimal_places=2,null=True,blank=True)  #,verbose_name='补充协议金额'
     aready_get_income = models.DecimalField(unique=False,null=True,blank=True, max_digits=12,decimal_places=2,verbose_name='已收款金额')
-    project_status = models.CharField(unique=True, max_length=200, verbose_name='项目当前状态')
-    project_closed = models.CharField(max_length=10, choices=project_close, null=True, blank=True, verbose_name='项目是否闭合')
-    confirm_papers = models.CharField(max_length=10, choices=confirm_papers, null=True, blank=True, verbose_name='有无中标通知书')
+    project_status = models.CharField(unique=True, max_length=200,  null=True, blank=True, verbose_name='项目当前状态')
+    project_closed = models.CharField(max_length=10, choices=project_close,  null=True, blank=True, verbose_name='项目是否闭合')
+    confirm_paper = models.CharField(max_length=100, choices=confirm_papers,null=True,blank=True,verbose_name='中标通知书')
+    proof          = models.CharField(max_length=20, choices=proofs,         null=True, blank=True, verbose_name='项目经理业绩证明')
     signing_date = models.DateField(auto_now_add=False, null=True,verbose_name='签订日期')
     p_name = models.CharField(unique=False, max_length=200, verbose_name='对应机场名称')
     p_no = models.IntegerField(unique=False,verbose_name='对应机场编号')
@@ -110,7 +111,6 @@ class Contracts(models.Model):
     person_name = models.CharField(unique=False,null=True,blank=True, max_length=200, verbose_name='联系人姓名')
     person_phone = models.CharField(max_length=20,null=True,blank=True,verbose_name='联系人电话')
     manager_name = models.CharField(unique=False, null=True, blank=True, max_length=200, verbose_name='项目经理')
-    proof = models.CharField(max_length=20, choices=proofs, null=True, blank=True, verbose_name='项目经理业绩证明')
     sex = models.CharField(max_length=20, choices=gender,null=True,blank=True,verbose_name='联系人性别')
     person_title = models.CharField(max_length=100, null=True,blank=True,verbose_name='联系人职位信息')
     first_party = models.CharField(max_length=200, null=True,verbose_name='甲方单位')
