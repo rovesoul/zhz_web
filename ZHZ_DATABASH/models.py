@@ -72,26 +72,37 @@ class Project_Detail(models.Model):
 
 class Contracts(models.Model):
     """contracts合同信息"""
+    # 性别
     gender = (
         ('male', "男"),
         ('female', "女"),
     )
-
+    # 项目经理业绩证明
     proofs = (
         ('有', "有"),
         ('无', "无"),
     )
-
+    # 项目是否闭合
     project_close = (
+        ('是', "是"),
+        ('否', "否"),
+        ('已作废', "已作废"),
+    )
+    # 中标通知书
+    confirm_papers = (
         ('是', "是"),
         ('否', "否"),
     )
 
+
     name = models.CharField(unique=True, max_length=200, verbose_name='合同名称')
     no = models.CharField(unique=True, max_length=200, verbose_name='合同编号')
     amount = models.DecimalField(unique=False, max_digits=12,decimal_places=2,verbose_name='合同金额')
-    aready_get_income = models.DecimalField(unique=False,null=True,blank=True, max_digits=12,decimal_places=2,verbose_name='总收款金额')
-    project_status = models.CharField(max_length=10, choices=project_close, null=True, blank=True, verbose_name='项目是否关闭')
+    add_money = models.DecimalField(unique=False, max_digits=12,decimal_places=2,verbose_name='补充协议金额')
+    aready_get_income = models.DecimalField(unique=False,null=True,blank=True, max_digits=12,decimal_places=2,verbose_name='已收款金额')
+    project_status = models.CharField(unique=True, max_length=200, verbose_name='项目当前状态')
+    project_closed = models.CharField(max_length=10, choices=project_close, null=True, blank=True, verbose_name='项目是否闭合')
+    confirm_papers = models.CharField(max_length=10, choices=confirm_papers, null=True, blank=True, verbose_name='有无中标通知书')
     signing_date = models.DateField(auto_now_add=False, null=True,verbose_name='签订日期')
     p_name = models.CharField(unique=False, max_length=200, verbose_name='对应机场名称')
     p_no = models.IntegerField(unique=False,verbose_name='对应机场编号')
