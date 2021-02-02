@@ -84,3 +84,8 @@ admin.site.register(ProjectDevice)
 admin.site.register(TradeContracts)
 
 
+
+# 下边这三行直接删了也没事，只是修改标题而已
+admin.site.site_header='ZHZ数据管理系统'
+admin.site.site_title='ZHZ系统'
+admin.site.index_title='商务管理'
