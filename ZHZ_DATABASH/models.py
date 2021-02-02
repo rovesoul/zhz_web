@@ -138,6 +138,7 @@ class Person(models.Model):
     sex = models.CharField(max_length=20, choices=gender, null=True,blank=True,verbose_name='性别')
     title = models.CharField(max_length=100, null=True,blank=True,verbose_name='职位信息')
     area = models.CharField(max_length=200, null=True,blank=True,verbose_name='籍贯或活动省市')
+    address = models.CharField(max_length=200, null=True,blank=True,verbose_name='邮寄地址')
     company = models.CharField(max_length=200, null=True,blank=True,verbose_name='公司名称')
     email = models.CharField(unique=False, max_length=200,null=True,blank=True, verbose_name='邮箱')
     idNO = models.CharField(unique=False, max_length=18,null=True,blank=True, verbose_name='身份证号')
