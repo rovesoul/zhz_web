@@ -22,12 +22,11 @@ from . import views
 urlpatterns = [
     url(r'admin/', admin.site.urls),
     path('', views.roots),  # 跟目录
-    # url(r'^demo/', include('demo.urls')),  # <--- demo指app
+    url(r'^demo/', include('demo.urls')),  # <--- demo指app
     url(r'^kaoshi/', include('exam.urls')),  # <--- demo指app
     url(r'^ZHZ/', include('ZHZ_DATABASH.urls')),  # <--- ZHZ_DATABASH指app
     url(r'^404/', views.page_not_found),  # <--- ZHZ_DATABASH指app
     path('captcha/', include('captcha.urls'))  # 增加这一行
-
 ]
 
 
