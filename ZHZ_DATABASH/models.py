@@ -299,3 +299,40 @@ class FriendWebsit(models.Model):
     class Meta:
         ordering = ['-c_time','websit_name']
         verbose_name_plural = '友情链接'
+
+
+
+# websit
+class NewCompanyProject(models.Model):
+    """
+    新项目记录管理功能
+    """
+    project_types = (
+        ('检测类', "检测类"),
+        ('外包类', "外包类"),
+        ('配合类', "配合类"),
+    )
+    project_status = (
+        ('进行中', "进行中"),
+        ('已签约', "已签约"),
+        ('已作废', "已作废"),
+        ('已配合完毕', "已配合完毕"),
+    )
+
+    id = models.AutoField(primary_key=True)
+    NewProjectID = models.CharField(unique=True, max_length=200, verbose_name='新立项项目编号')
+    NewProject_name = models.CharField(unique=True, max_length=150, verbose_name='新立项项目名称')
+    NewProject_type = models.CharField(unique=False, choices=project_types, null=True, blank=True, max_length=60,verbose_name='项目性质')
+    NewProject_status = models.CharField(unique=False, choices=project_status, null=True, blank=True, max_length=60,verbose_name='项目状态')
+    NewProjectDoc = models.TextField(max_length=2000, null=True,blank=True,verbose_name='此项目背景介绍')
+    # 这俩固定的，机场库的
+    p_name = models.CharField(unique=False, max_length=200, null=True, verbose_name='机场项目名称')
+    p_no = models.IntegerField(unique=False, null=True, verbose_name='机场项目编号')
+
+    c_time = models.DateTimeField(auto_now_add=True, verbose_name='项目创建时间')
+    def __str__(self):
+        return self.__doc__ + ':' + self.NewProject_name
+
+    class Meta:
+        ordering = ['-c_time','NewProject_name']
+        verbose_name_plural = '新立项项目'

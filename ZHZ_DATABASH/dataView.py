@@ -32,4 +32,7 @@ def luggage_company_info(request):
     return HttpResponse("行李厂商信息，包括厂名、地址、联系人、资质、生产内容、注册年份啥的")
 
 
+def New_project(request):
+    return HttpResponse("新项目管理")
+
 # -----------------------------api部分---
