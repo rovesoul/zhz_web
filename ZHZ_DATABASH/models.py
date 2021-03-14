@@ -133,6 +133,7 @@ class Person(models.Model):
     )
     p_name = models.CharField(unique=False, max_length=200,null=True, verbose_name='项目名称')
     p_no = models.IntegerField(unique=False, null=True, verbose_name='项目编号')
+    NewProjectID = models.CharField(unique=False, max_length=200, null=True,blank=True,verbose_name='新立项项目编号')
     name = models.CharField(unique=False, max_length=200, null=True,verbose_name='联系人姓名')
     phone = models.CharField(max_length=20, null=True,blank=True,verbose_name='电话')
     sex = models.CharField(max_length=20, choices=gender, null=True,blank=True,verbose_name='性别')
@@ -322,12 +323,13 @@ class NewCompanyProject(models.Model):
     id = models.AutoField(primary_key=True)
     NewProjectID = models.CharField(unique=True, max_length=200, verbose_name='新立项项目编号')
     NewProject_name = models.CharField(unique=True, max_length=150, verbose_name='新立项项目名称')
+    Contracts_no = models.CharField(unique=False, max_length=200, null=True, blank=True, verbose_name='签约的合同编号')
     NewProject_type = models.CharField(unique=False, choices=project_types, null=True, blank=True, max_length=60,verbose_name='项目性质')
     NewProject_status = models.CharField(unique=False, choices=project_status, null=True, blank=True, max_length=60,verbose_name='项目状态')
-    NewProjectDoc = models.TextField(max_length=2000, null=True,blank=True,verbose_name='此项目背景介绍')
+    NewProjectDoc = models.TextField(unique=False,max_length=2000, null=True,blank=True,verbose_name='此项目背景介绍')
     # 这俩固定的，机场库的
-    p_name = models.CharField(unique=False, max_length=200, null=True, verbose_name='机场项目名称')
-    p_no = models.IntegerField(unique=False, null=True, verbose_name='机场项目编号')
+    p_name = models.CharField(unique=False, max_length=200, blank=True, null=True, verbose_name='机场项目名称')
+    p_no = models.IntegerField(unique=False,blank=True, null=True, verbose_name='机场项目编号')
 
     c_time = models.DateTimeField(auto_now_add=True, verbose_name='项目创建时间')
     def __str__(self):
@@ -336,3 +338,19 @@ class NewCompanyProject(models.Model):
     class Meta:
         ordering = ['-c_time','NewProject_name']
         verbose_name_plural = '新立项项目'
+
+
+class NP_Note(models.Model):
+    """
+    每个项目的Tag\note功能
+    """
+    id = models.AutoField(primary_key=True)
+    NewProjectID = models.CharField(unique=False, max_length=200, verbose_name='新立项项目编号')
+    note_one = models.TextField(max_length=5000, null=True,blank=True,verbose_name='事项记录')
+    c_time = models.DateTimeField(auto_now_add=True, verbose_name='项目创建时间')
+    def __str__(self):
+        return self.__doc__ + ':' + self.NewProject_name
+
+    class Meta:
+        ordering = ['-c_time','NewProjectID']
+        verbose_name_plural = 'NP事情记录'

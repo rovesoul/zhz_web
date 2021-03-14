@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" sizes="20x20" href="/static/icon/plane.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>创建项目</title>
+    <style type="text/css">
+        .tight {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .input-group-sm {
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container-fluid">
+        <h1 class="display-4">{{ page_title }}</h1>
+        <hr class="my-4">
+        {% block subtitle %}
+            这块我也不知道放啥，先留着
+        {% endblock %}
+    </div>
+</div>
+
+<div class="container-fluid" id="div1">
+    <div class="row" style="min-height: 600px">
+        <div class="col-sm-3">
+            <h5>{{ request.session.user_name }}欢迎回来</h5>
+            <div><a href="/demo/logout/">登出</a></div>
+            <hr class="my-4">
+            <p>在本页面中，汇集了查看常见信息的内容，目前仅为部分，如需增加能容，请提供详细需求，并发送邮件到397703547@qq.com</p>
+            {% include 'base1_left_choiceButton.html' %}
+            <div style="width: 100%">
+                {{ left_title }}
+                {% block body_left %}
+                    左边留着，查机场编号
+                {% endblock %}
+
+            </div>
+        </div>
+        <div class="col-sm-9">
+            {{ right_title }}
+
+            <div style="padding: 25px;width: 800px" id="new_tag">
+
+                <form action="/ZHZ/np_creat_NP_post" method="post">
+                    {% csrf_token %}
+                    <h5>请在下方输入要创建的项目信息</h5>
+                    <p><input type="hidden" name="page" value="{{ page_title }}"></p>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">项目名称</span>
+                        <input type="text" name="NewProject_name" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入名称" required="required">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">签约合同编号</span>
+                        <input type="text" name="Contracts_no" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="未到签合同步骤可不填写">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">项目性质</label>
+                        <select name="NewProject_type" class="form-select" id="inputGroupSelect01">
+                            <option selected>请点击选择...</option>
+                            <option value="检测类">检测类</option>
+                            <option value="外包类">外包类</option>
+                            <option value="配合类">配合类</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">项目进展情况</label>
+                        <select name="NewProject_status" class="form-select" id="inputGroupSelect01">
+                            <option selected>请点击选择...</option>
+                            <option value="进行中">进行中</option>
+                            <option value="已签约">已签约</option>
+                            <option value="已作废">已作废</option>
+                            <option value="已配合完毕">已配合完毕</option>
+                        </select>
+                    </div>
+                    <div class="input-group-sm">
+                        <textarea type="text" name="note_one" class="form-control" aria-label="Sizing example input"
+                                  aria-describedby="inputGroup-sizing-sm" placeholder="项目背景介绍（2000字内）" cols="20" rows="5"
+                                  aria-describedby="basic-addon1"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">机场名称</span>
+                        <input type="text" name="p_name" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入机场名称，名字可从左侧查询（非机场项目可不填）">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">机场编号</span>
+                        <input type="text" name="p_no" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入机场编号，编号可从左侧查询（非机场项目可不填）">
+                    </div>
+                    <p><input type="submit" value="创建"></p>
+                </form>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+</div>
+<div id="footer">
+    {% include 'footers.html' %}
+</div>
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" sizes="20x20" href="/static/icon/plane.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>NewPorject管理</title>
+    <style type="text/css">
+        .tight {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .input-group-sm {
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container-fluid">
+        <h1 class="display-4">{{ page_title }}</h1>
+        <hr class="my-4">
+        {% block subtitle %}
+            <h2>查询日志项目编号是：{{ NPID }}：{{ NP_message.NewProject_name }}</h2>
+        {% endblock %}
+    </div>
+</div>
+
+<div class="container-fluid" id="div1">
+    <div class="row" style="min-height: 600px">
+        <div class="col-sm-3">
+            <h5>{{ request.session.user_name }}欢迎回来</h5>
+            <div><a href="/demo/logout/">登出</a></div>
+            <hr class="my-4">
+            <p>在本页面中，汇集了查看常见信息的内容，目前仅为部分，如需增加能容，请提供详细需求，并发送邮件到397703547@qq.com</p>
+            {% include 'base1_left_choiceButton.html' %}
+            <div style="width: 100%">
+                {{ left_title }}
+                {% block body_left %}
+
+                    <div style="padding: 5px">
+
+                        <form action="/ZHZ/np_creat_person" method="post">
+                            {% csrf_token %}
+                            <h5>人员登记</h5>
+                            <p><input type="hidden" name="page" value="{{ page_title }}"></p>
+                            <div class="input-group-sm">
+                                <input type="text" name="p_name" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="机场名称/招标代理">
+                            </div>
+                            <div class="input-group-sm">
+                                <p style="vertical-align: bottom;font-size: smaller;margin-bottom: 0;margin-top: 3px">
+                                    机场编号请填机场编号，招标代理编号777</p>
+                                <input type="text" name="p_no" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="机场编号/招标代理">
+                            </div>
+                            <div class="input-group-sm">
+                                <input type="hidden" name="NewProjectID" class="form-control"
+                                       aria-label="Sizing example input "
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="立项项目编号" value="{{ NPID }}"
+                                       readonly="readonly">
+                            </div>
+                            <div class="input-group-sm">
+                                <input type="text" name="name" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="联系人姓名"
+                                       aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group-sm">
+                                <input type="text" name="phone" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="联系人电话">
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sex"
+                                       id="flexRadioDefault1" value="male">
+                                <label class="form-check-label" checked for="flexRadioDefault1">
+                                    male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sex"
+                                       id="flexRadioDefault2" value="male">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    female
+                                </label>
+                            </div>
+
+                            <div class="input-group-sm">
+                                <input type="text" name="company" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="公司名称">
+                            </div>
+                            <div class="input-group-sm">
+                                <input type="text" name="title" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="职位信息">
+                            </div>
+                            <div class="input-group-sm">
+                                <input type="email" name="email" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="联系邮箱">
+                            </div>
+                            <div class="input-group-sm">
+                                <input type="text" name="address" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="快递邮寄地址">
+                            </div>
+                            <div class="input-group-sm">
+                                <input type="text" name="idNO" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="身份证号">
+                            </div>
+                            <div class="input-group-sm">
+                                <input type="text" name="up_name" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="登记人">
+                            </div>
+                            <div class="input-group-sm">
+                                <input type="datetime-local" name="ups_time" class="form-control"
+                                       aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" placeholder="登记时间">
+                            </div>
+
+                            <p><input type="submit" value="提交"></p>
+                        </form>
+                    </div>
+
+
+
+
+                {% endblock %}
+
+            </div>
+        </div>
+        <div class="col-sm-9">
+            {{ right_title }}
+            <div class="row align-items-start">
+                <div>
+                    <p>项目名称是：{{ NP_message.NewProject_name }}</p>
+                    <p>查询日志项目编号是：{{ NP_message.NewProjectID }}</p>
+                    <p>创建该项目时间：{{ NP_message.c_time }}</p>
+                    <p>对应合同编号是：{{ NP_message.Contracts_no }}</p>
+                    <p>项目类别是：{{ NP_message.NewProject_type }}</p>
+                    <p>项目对应机场名称：{{ NP_message.p_name }}</p>
+                    <p>项目对应机场编号：{{ NP_message.p_no }}</p>
+                    <p>该项目推进状态：{{ NP_message.NewProject_status }}</p>
+                </div>
+                <p>项目背景简介：{{ NP_message.NewProjectDoc }}</p>
+            </div>
+            <hr class="my-2">
+            <div class="row align-items-start">
+                <h4 style="display: inline-flex">相关联系人记录如下</h4>
+
+                {% for i in NP_Person %}
+                    <div class="card text-white bg-primary " style="max-width: 16rem;margin: 5px">
+                        <div style="padding: 5px;margin-top: 5px">
+                            <h5 class="card-title" style="margin: 0px">姓名：{{ i.name }}</h5>
+                        </div>
+                        <div class="card-body" style="padding: 3px">
+                            <p class="card-text tight">电话：{{ i.phone }}</p>
+                            <p class="card-text tight">邮件：{{ i.email }}</p>
+                            <p class="card-text tight">性别：{{ i.sex }}</p>
+                            <p class="card-text tight">所在公司：{{ i.company }}</p>
+                            <p class="card-text tight">职位：{{ i.title }}</p>
+                            <p class="card-text tight">所在城市：{{ i.area }}</p>
+                            <p class="card-text tight">邮寄地址：{{ i.address }}</p>
+
+                        </div>
+                        <div class="card-footer bg-transparent border-white" style="padding: 3px">
+                            登记于：{{ i.ups_time }}
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+            <div style="padding: 5px" id="new_tag">
+
+                <form action="/ZHZ/np_creat_log" method="post">
+                    {% csrf_token %}
+                    <h5>人员登记</h5>
+                    <p><input type="hidden" name="page" value="{{ page_title }}"></p>
+
+                    <div class="input-group-sm">
+                        <input type="text" name="NewProjectID" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" placeholder="立项项目编号" value="{{ NPID }}"
+                               readonly="readonly">
+                    </div>
+                    <div class="input-group-sm">
+                        <textarea type="text" name="note_one" class="form-control" aria-label="Sizing example input"
+                                  aria-describedby="inputGroup-sizing-sm" placeholder="事项日志记录" cols="50" rows="5"
+                                  aria-describedby="basic-addon1"></textarea>
+                    </div>
+                    <p><input type="submit" value="提交"></p>
+                </form>
+            </div>
+            <div id="app">
+                {# 用VUE 实现 抓取列表#}
+                {% verbatim myblock %}
+
+                    <hr class="my-2">
+                    <h4>日志记录有：{{ datas.length }}条</h4>
+                    <ul class="list-group list-group-flush" v-for="onedata in datas">
+                        <div class="row list-group-item-action shadow-sm" style="margin: 6px;max-width: 85em;">
+                            <div class="col-sm-3 border-end" style="background-color: #efefef">
+                                <span class="badge bg-danger  fs-6" style="margin-top: 15px">
+                                    {{ onedata.c_time.substring(0,10) }}&nbsp&nbsp{{ onedata.c_time.substring(11,16) }}
+                                </span>
+                            </div>
+                            <div class="col-sm-9 fs-6 lh-lg"
+                                 style="min-height: 30px;padding: 25px;text-align: justify;">
+                                {{ onedata.note_one }}
+                            </div>
+                        </div>
+                    </ul>
+                {% endverbatim myblock %}
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+<div id="footer">
+    {% include 'footers.html' %}
+</div>
+</body>
+<script>
+    var Vue = new Vue({
+        el: "#app",
+        data: {
+            message: "hello world",
+            datas: "",
+            NPID: "{{ NPID }}",
+            NPName: "{{ NPName }}",
+            NP_Person: "{{ NP_Person }}",
+
+        },
+        created: function () {
+            var that = this;
+            let url = '/ZHZ/np_notes_json/' + that.NPID + "/";
+            axios.get(url).then(
+                function (response) {
+                    console.log(response.data); //看返回内容
+                    that.datas = response.data.notes
+
+                    //that.classic = response.data.经典
+                    //console.log(response.data.经典); //看返回内容
+                },
+                function (err) {
+                }
+            );
+
+        },
+
+    })
+
+</script>
+
+</html>

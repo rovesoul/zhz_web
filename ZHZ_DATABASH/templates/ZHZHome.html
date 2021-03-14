@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/DATABASH_CSS/ZHZHome.css">
     <title>看板首页</title>
-
+    <style>
+        .databash{
+            background-image: linear-gradient(to bottom , gainsboro, whitesmoke);
+        }
+    </style>
 </head>
 {% extends 'moban_page_base1.html' %}
 <body>
@@ -19,7 +23,7 @@
 {% block body_right %}
 <div class="row databash_mother" id="databash_mother" >
 
-    <div class="col-md-2 col-sm-4 text-center databash">
+    <div class="col-md-2 col-sm-4 text-center databash" >
         <span class="databash_title">库中机场数</span>
         <div class="databash_value_div">
             <span class="align-middle font-weight-bold databash_value_span"
@@ -212,8 +216,12 @@
 
 
 </div>
-
-    {% include 'footers.html' %}
 {% endblock body_right %}
+
+{% block body_foot %}
+    <div class="container-fluid" style="clear: both;bottom: 0"  >
+        {% include 'footers.html'%}
+    </div>
+{% endblock body_foot %}
 </body>
 </html>
