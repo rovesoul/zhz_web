@@ -40,9 +40,72 @@
             {% include 'base1_left_choiceButton.html' %}
             <div style="width: 100%">
                 {{ left_title }}
-                {% block body_left %}
-                    左边留着，查机场编号
-                {% endblock %}
+                <div id="airportfind">
+                    {# 用VUE 实现 抓取列表#}
+                    {% verbatim notesblock %}
+                        <form class="row g-3">
+                            <div class="col-auto">
+                                <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
+                                       value="查找内容，输入机场、编号均可" style="width: 25em">
+                            </div>
+                            <div class="col-auto">
+                                <input name="findtext" type="text" class="form-control" id="inputPassword2"
+                                       placeholder="查找内容" v-model="findtext">
+                            </div>
+                            <div class="col-auto">
+                                <a type="submit" class=" btn-primary mb-3" @click="findtextdata">查找</a>
+                            </div>
+                            <p v-if="findtextready">查找{{ findtextready }}内容结果如下({{ airports.length }}条)：</p>
+                        </form>
+                        <ul v-for="onedata in airports">
+                            <div >
+                                <span class="input-group-text" id="basic-addon1">项目名称：{{ onedata.p_name }}</span>
+
+                            </div>
+                            <div >
+                                <span class="input-group-text" id="basic-addon1">项目编号：{{ onedata.p_no }}</span>
+
+                            </div>
+                        </ul>
+                    {% endverbatim notesblock %}
+                </div>
+                <script>
+                    var Vue = new Vue({
+                        el: "#airportfind",
+                        data: {
+                            message: "点击项目，进入项目页面添加撰写日志",
+                            airports: "",
+                            findtext: '',
+                            findtextready: '',
+                        },
+                        methods: {
+                            findtextdata: function () {
+                                //在methods内部访问data中的数据：this.属性名
+                                var that = this;
+                                console.log("gogogo");  // 'todo'
+                                that.findtextready = that.findtext;
+                                that.findtext = "";
+                                if (that.findtextready != "") {
+                                    let url = '/ZHZ/airportfind/' + that.findtextready + '/';
+                                    console.log(url);
+                                    axios.get(url).then(
+                                        function (response) {
+                                            console.log(response.data); //看返回内容
+                                            that.airports = response.data.AirPortfinded
+                                        },
+                                        function (err) {
+                                        }
+                                    );
+                                } else {
+                                    that.airports = "";
+                                }
+
+                            },
+                        },
+
+                    })
+
+                </script>
 
             </div>
         </div>
@@ -87,7 +150,8 @@
                     </div>
                     <div class="input-group-sm">
                         <textarea type="text" name="note_one" class="form-control" aria-label="Sizing example input"
-                                  aria-describedby="inputGroup-sizing-sm" placeholder="项目背景介绍（2000字内）" cols="20" rows="5"
+                                  aria-describedby="inputGroup-sizing-sm" placeholder="项目背景介绍（2000字内）" cols="20"
+                                  rows="5"
                                   aria-describedby="basic-addon1"></textarea>
                     </div>
                     <div class="input-group mb-3">
@@ -103,8 +167,6 @@
                     <p><input type="submit" value="创建"></p>
                 </form>
             </div>
-
-
 
 
         </div>

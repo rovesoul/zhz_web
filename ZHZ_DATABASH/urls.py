@@ -19,6 +19,8 @@ urlpatterns = [
     # 新建项目
     url(r'^np_creat_NEWPROJECT$',NewProjectView.NP_create_NP_Page,name="新建项目页面"),
     url(r'^np_creat_NP_post$',NewProjectView.NP_create_NP_POST,name="新建项目post接口"),
+    url(r'^newprojectfind/(.+)/$',NewProjectView.NP_NPS_json,name="NP项目搜索"),
+    url(r'^airportfind/(.+)/$',NewProjectView.AirPortMessage_json,name="机场项目搜索"),
 
     # 新建项目过程记录json接口
     url(r'^np_notes_json/(.+)/$',NewProjectView.NP_NOTE_json,name="NP项目对应note接口"),

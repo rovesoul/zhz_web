@@ -27,16 +27,18 @@
             <hr class="my-4">
             <p>在本页面中，汇集了查看常见信息的内容，目前仅为部分，如需增加能容，请提供详细需求，并发送邮件到397703547@qq.com</p>
             {% include 'base1_left_choiceButton.html' %}
-            <div style="width: 100%;background-color: lightyellow" >
+            <div style="width: 100%;background-color: lightyellow">
                 <h4>最新项目日志一览(近期50条)</h4>
                 <p>点击日志可进入对应项目查看所有日志</p>
                 <div id="notes_look">
                     {# 用VUE 实现 抓取列表#}
                     {% verbatim notesblock %}
-                        <ul class="list-group list-group-flush" v-for="(onedata , index) in notes" v-if="index < 50" :key="onedata" style="width: 95%;">
+                        <ul class="list-group list-group-flush" v-for="(onedata , index) in notes" v-if="index < 50"
+                            :key="onedata" style="width: 95%;">
 
                             <a :href="'newprojectone/'+onedata.NewProjectID+'/'"
-                               class="list-group-item list-group-item-action shadow-sm" style=" margin: 5px;padding: 5px;background-color: azure"
+                               class="list-group-item list-group-item-action shadow-sm"
+                               style=" margin: 5px;padding: 5px;background-color: azure"
                                target="_blank">
                                 <div style="font-size: 8px;color: cornflowerblue">{{ onedata.NewProjectID }}</div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
@@ -95,11 +97,29 @@
                 {# 用VUE 实现 抓取列表#}
                 {% verbatim myblock %}
 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-  <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-</svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>
                     {{ message }}
+
+
+                    <form class="row g-3">
+                        <div class="col-auto">
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
+                                   value="查找内容，输入机场、项目名、编号、类别、状态均可" style="width: 25em">
+                        </div>
+                        <div class="col-auto">
+                            <input name="findtext" type="text" class="form-control" id="inputPassword2"
+                                   placeholder="查找内容" v-model="findtext">
+                        </div>
+                        <div class="col-auto">
+                            <a type="submit" class=" btn-primary mb-3" @click="findtextdata">查找</a>
+                        </div>
+                        <p v-if="findtextready">查找{{ findtextready }}内容结果如下：</p>
+                    </form>
+
                     <p>共有项目{{ datas.length }}个</p>
                     <ul class="list-group list-group-flush" v-for="onedata in datas" :key="onedata">
                         <a :href="'newprojectone/'+onedata.NewProjectID+'/'"
@@ -109,7 +129,7 @@
                                 <path d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 0 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 1 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.118a.5.5 0 0 1-.447-.276l-1.232-2.465-2.512-4.185a.517.517 0 0 1 .809-.631l2.41 2.41A.5.5 0 0 0 6 9.5V1.75A.75.75 0 0 1 6.75 1zM8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v6.543L3.443 6.736A1.517 1.517 0 0 0 1.07 8.588l2.491 4.153 1.215 2.43A1.5 1.5 0 0 0 6.118 16h6.302a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5.114 5.114 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.632 2.632 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046l-.048.002zm2.094 2.025z"/>
                             </svg>
                             <div style="width:8em;display: inline-block">{{ onedata.NewProjectID }}</div>
-                            <div style="width:20em;display: inline-block">{{ onedata.NewProject_name }}</div>
+                            <div style="width:25em;display: inline-block;margin-right: 2px">{{ onedata.NewProject_name }}</div>
                             <div style="width:6em;display: inline-block">{{ onedata.NewProject_status }}</div>
                             <div style="width:5em;display: inline-block">{{ onedata.NewProject_type }}</div>
                             <div style="width:12em;display: inline-block">{{ onedata.p_name }}</div>
@@ -140,6 +160,8 @@
         data: {
             message: "点击项目，进入项目页面添加撰写日志",
             datas: "",
+            findtext: '',
+            findtextready: '',
 
         },
         created: function () {
@@ -157,6 +179,38 @@
                 }
             );
 
+        },
+        methods: {
+            findtextdata: function () {
+                //在methods内部访问data中的数据：this.属性名
+                var that = this;
+                console.log("gogogo");  // 'todo'
+                that.findtextready = that.findtext;
+                that.findtext = "";
+                if (that.findtextready != "") {
+                    let url = '/ZHZ/newprojectfind/' + that.findtextready + '/';
+                    console.log(url);
+                    axios.get(url).then(
+                        function (response) {
+                            console.log(response.data); //看返回内容
+                            that.datas = response.data.npsfinded
+                        },
+                        function (err) {
+                        }
+                    );
+                } else {
+                    let url = '/ZHZ/newprojectjson';
+                    axios.get(url).then(
+                        function (response) {
+                            console.log(response.data); //看返回内容
+                            that.datas = response.data.projects
+                        },
+                        function (err) {
+                        }
+                    );
+                }
+
+            },
         },
 
     });
