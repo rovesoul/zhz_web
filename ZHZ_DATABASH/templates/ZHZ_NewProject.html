@@ -25,8 +25,10 @@
             <h5>{{ request.session.user_name }}欢迎回来</h5>
             <div><a href="/demo/logout/">登出</a></div>
             <hr class="my-4">
-            <p>在本页面中，汇集了查看常见信息的内容，目前仅为部分，如需增加能容，请提供详细需求，并发送邮件到397703547@qq.com</p>
             {% include 'base1_left_choiceButton.html' %}
+            <div class="alert alert-secondary" role="alert" style="margin-top: 20px">
+                本页面按创建时间展示所记录的项目，左侧下方为近期记录的日志；右侧为具体项目，每个项目可以点击进入查看日志详情、联系人、日志内容等。
+            </div>
             <div style="width: 100%;background:whitesmoke;padding: 5px;margin-top: 20px">
                 <h4>最新项目日志一览(近期50条)</h4>
                 <p>点击日志可进入对应项目查看所有日志</p>
@@ -48,7 +50,7 @@
                                 <span id="logtime" class="badge bg-light"
                                       style="font-size: 8px;color: steelblue">{{ onedata.c_time.substring(0,10) }}
                                     {{ onedata.c_time.substring(12,16) }}</span>
-                                <div class="container-s" style="display: inline-block;color: darkslateblue">{{ onedata.note_one }}</div>
+                                <div class="container-s" style="display: inline-block;font-size: 12px;color: darkslateblue">{{ onedata.note_one }}</div>
                             </a>
 
                         </ul>

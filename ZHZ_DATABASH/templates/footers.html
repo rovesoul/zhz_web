@@ -18,9 +18,9 @@
                 <div class="col-12 order-2 col-md-8 order-md-1">
                     <h5 class="d-inline-block">相关网站</h5>
                     <small id="copyright" class="d-inline-block text-muted"></small>
-                    <ul class="list-unstyled">
+                    <ul class="list-unstyled row">
                         {% for item in FriendWeb %}
-                            <li class="beian"><a class="beian" href="{{ item.2 }}" target="_blank"
+                            <li class="beian col-md-4"><a class="beian" href="{{ item.2 }}" target="_blank"
                                                  rel="nofollow">{{ item.1 }}</a></li>
                         {% endfor %}
                     </ul>
