@@ -19,16 +19,16 @@
             margin-bottom: 2px;
         }
         #messagelabel{
-            background-color: dodgerblue;
-            color: ghostwhite;
-            font-size:10px;
+            background-color: lightskyblue;
+            color: #333333;
+            font-size:13px;
             padding: 0px 0px 2px 5px;
             margin-right:5px;
             border-radius: 5px;
-            text-align: center ;
+            text-align: right ;
 
             display:inline-block;
-            width:130px;
+            width:140px;
 
         }
         #messagelabel-input{
@@ -180,16 +180,26 @@
         <div class="col-sm-9">
             {{ right_title }}
             <div class="row align-items-start">
-                <ul>
-                    <li > <span id="messagelabel" >项目名称是：</span>{{ NP_message.NewProject_name }}</li>
+                <ul class="col-sm-5">
+                    <li ><span id="messagelabel" >项目名称是：</span>{{ NP_message.NewProject_name }}</li>
                     <li ><span id="messagelabel" >查询日志项目编号是：</span>{{ NP_message.NewProjectID }}</li>
                     <li ><span id="messagelabel" >创建该项目时间：</span>{{ NP_message.c_time }}</li>
                     <li ><span id="messagelabel" >对应合同编号是：</span>{{ NP_message.Contracts_no }}</li>
                     <li ><span id="messagelabel" >项目类别是：</span>{{ NP_message.NewProject_type }}</li>
+                    <li ><span id="messagelabel" >该项目推进状态：</span>{{ NP_message.NewProject_status }}</li>
                     <li ><span id="messagelabel" >项目对应机场名称：</span>{{ NP_message.p_name }}</li>
                     <li ><span id="messagelabel" >项目对应机场编号：</span>{{ NP_message.p_no }}</li>
-                    <li ><span id="messagelabel" >该项目推进状态：</span>{{ NP_message.NewProject_status }}</li>
                 </ul>
+                <ul class="col-sm-5">
+                    <li ><span id="messagelabel" >招标控制价：</span>￥{{ NP_message.money_price_control }}</li>
+                    <li ><span id="messagelabel" >购买招标文件费用：</span>￥{{ NP_message.monney_buy_biddingDoc }}</li>
+                    <li ><span id="messagelabel" >投标保证金：</span>￥{{ NP_message.money_Bid_security_fee }}</li>
+                    <li ><span id="messagelabel" >开标室费用：</span>￥{{ NP_message.money_use_room_fee }}</li>
+                    <li ><span id="messagelabel" >招标代理服务费：</span>￥{{ NP_message.money_agency_service_fee }}</li>
+                    <li ><span id="messagelabel" >交易服务费：</span>￥{{ NP_message.money_transaction_service_fee }}</li>
+                    <li ><span id="messagelabel" >履约保证金：</span>￥{{ NP_message.money_Performance_bond }}</li>
+                </ul>
+
                 <p>项目背景简介：{{ NP_message.NewProjectDoc }}</p>
             </div>
             <hr class="my-2">

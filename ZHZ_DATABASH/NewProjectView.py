@@ -29,7 +29,7 @@ def New_project(request):
 
 def New_project_json(request):
     """
-    新项目的接口
+    获取所有立项项目列表
     """
     NewProjectS = models.NewCompanyProject.objects.all().values()
     data = {}
@@ -198,6 +198,15 @@ def NP_create_NP_POST(request):
             Contracts_no = request.POST.get('Contracts_no')
             NewProject_type = request.POST.get('NewProject_type')
             NewProject_status = request.POST.get('NewProject_status')
+
+            money_price_control = request.POST.get('money_price_control')
+            monney_buy_biddingDoc = request.POST.get('monney_buy_biddingDoc')
+            money_Bid_security_fee = request.POST.get('money_Bid_security_fee')
+            money_use_room_fee = request.POST.get('money_use_room_fee')
+            money_agency_service_fee = request.POST.get('money_agency_service_fee')
+            money_transaction_service_fee = request.POST.get('money_transaction_service_fee')
+            money_Performance_bond = request.POST.get('money_Performance_bond')
+
             NewProjectDoc = request.POST.get('NewProjectDoc')
             p_name = request.POST.get('p_name')
             p_no = request.POST.get('p_no')
@@ -211,6 +220,15 @@ def NP_create_NP_POST(request):
                     Contracts_no=Contracts_no,
                     NewProject_type=NewProject_type,
                     NewProject_status=NewProject_status,
+
+                    money_price_control=          money_price_control,
+                    monney_buy_biddingDoc=        monney_buy_biddingDoc,
+                    money_Bid_security_fee=       money_Bid_security_fee,
+                    money_use_room_fee=           money_use_room_fee,
+                    money_agency_service_fee=     money_agency_service_fee,
+                    money_transaction_service_fee=money_transaction_service_fee,
+                    money_Performance_bond=       money_Performance_bond,
+
                     NewProjectDoc=NewProjectDoc,
                     p_name=p_name,
                     p_no=p_no,

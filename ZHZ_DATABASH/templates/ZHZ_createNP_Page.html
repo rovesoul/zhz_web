@@ -20,8 +20,15 @@
         }
         .input-group-text{
             display:inline-block;
-            width:130px;
+            width:140px;
         }
+        .wider{
+            width: auto;
+        }
+        .form-control{
+            width: auto;
+        }
+
     </style>
 </head>
 <div class="jumbotron jumbotron-fluid">
@@ -61,13 +68,13 @@
                             </div>
                             <p v-if="findtextready">查找{{ findtextready }}内容结果如下({{ airports.length }}条)：</p>
                         </form>
-                        <ul v-for="onedata in airports">
+                        <ul v-for="onedata in airports" style="padding-left: 0px">
                             <div >
-                                <span class="input-group-text" id="basic-addon1">项目名称：{{ onedata.p_name }}</span>
+                                <span class="input-group-text wider" id="basic-addon1">项目名称：{{ onedata.p_name }}</span>
 
                             </div>
                             <div >
-                                <span class="input-group-text" id="basic-addon1">项目编号：{{ onedata.p_no }}</span>
+                                <span class="input-group-text wider" id="basic-addon1">项目编号：{{ onedata.p_no }}</span>
 
                             </div>
                         </ul>
@@ -116,7 +123,7 @@
         <div class="col-sm-9">
             {{ right_title }}
 
-            <div style="padding: 25px;width: 800px" id="new_tag">
+            <div class="wider" style="padding: 25px;width: 800px" id="new_tag">
 
                 <form action="/ZHZ/np_creat_NP_post" method="post">
                     {% csrf_token %}
@@ -125,7 +132,7 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">项目名称</span>
-                        <input type="text" name="NewProject_name" class="form-control" aria-label="Sizing example input"
+                        <input type="text" name="NewProject_name" class="form-control wider" aria-label="Sizing example input"
                                aria-describedby="basic-addon1" placeholder="输入名称" required="required">
                     </div>
                     <div class="input-group mb-3">
@@ -152,6 +159,43 @@
                             <option value="已配合完毕">已配合完毕</option>
                         </select>
                     </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">招标控制价</span>
+                        <input type="text" name="money_price_control" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入招标控制价（元）" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">购买招标文件费</span>
+                        <input type="text" name="monney_buy_biddingDoc" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入购买招标文件费用（元）" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">投标保证金</span>
+                        <input type="text" name="money_Bid_security_fee" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入投标保证金（元）" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">开标室使用费用</span>
+                        <input type="text" name="money_use_room_fee" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入开标室费用（元）" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">招标代理服务费</span>
+                        <input type="text" name="money_agency_service_fee" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入招标代理服务费（元）" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">交易服务费</span>
+                        <input type="text" name="money_transaction_service_fee" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入交易服务费（元）" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">履约保证金</span>
+                        <input type="text" name="money_Performance_bond" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="basic-addon1" placeholder="输入履约保证金（元）" >
+                    </div>
+
+
                     <div class="input-group-sm">
                         <textarea type="text" name="note_one" class="form-control" aria-label="Sizing example input"
                                   aria-describedby="inputGroup-sizing-sm" placeholder="项目背景介绍（2000字内）" cols="20"
@@ -181,6 +225,8 @@
 <div id="footer">
     {% include 'footers.html' %}
 </div>
+
+
 </body>
 
 </html>

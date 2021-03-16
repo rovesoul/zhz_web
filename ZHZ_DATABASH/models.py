@@ -326,6 +326,13 @@ class NewCompanyProject(models.Model):
     Contracts_no = models.CharField(unique=False, max_length=200, null=True, blank=True, verbose_name='签约的合同编号')
     NewProject_type = models.CharField(unique=False, choices=project_types, null=True, blank=True, max_length=60,verbose_name='项目性质')
     NewProject_status = models.CharField(unique=False, choices=project_status, null=True, blank=True, max_length=60,verbose_name='项目状态')
+    money_price_control = models.DecimalField(unique=False, max_digits=10,decimal_places=2,null=True, blank=True, max_length=60,verbose_name='招标控制价')
+    monney_buy_biddingDoc = models.DecimalField(unique=False, max_digits=9,decimal_places=2,null=True, blank=True, max_length=60,verbose_name='招标文件费用')
+    money_Bid_security_fee = models.DecimalField(unique=False, max_digits=9,decimal_places=2,null=True, blank=True, max_length=60,verbose_name='投标保证金')
+    money_use_room_fee = models.DecimalField(unique=False, max_digits=7,decimal_places=2,null=True, blank=True, max_length=60,verbose_name='开标室费用')
+    money_agency_service_fee = models.DecimalField(unique=False, max_digits=7,decimal_places=2,null=True, blank=True, max_length=60,verbose_name='招标代理服务费')
+    money_transaction_service_fee = models.DecimalField(unique=False, max_digits=7,decimal_places=2,null=True, blank=True, max_length=60,verbose_name='交易服务费')
+    money_Performance_bond = models.DecimalField(unique=False, max_digits=9,decimal_places=2,null=True, blank=True, max_length=60,verbose_name='履约保证金')
     NewProjectDoc = models.TextField(unique=False,max_length=2000, null=True,blank=True,verbose_name='此项目背景介绍')
     # 这俩固定的，机场库的
     p_name = models.CharField(unique=False, max_length=200, blank=True, null=True, verbose_name='机场项目名称')
