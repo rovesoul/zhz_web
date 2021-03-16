@@ -8,7 +8,7 @@
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>NewPorject管理</title>
+    <title>{{ pagename }}</title>
     <style type="text/css">
         .tight {
             padding: 0px;
@@ -17,6 +17,41 @@
 
         .input-group-sm {
             margin-bottom: 2px;
+        }
+        #messagelabel{
+            background-color: dodgerblue;
+            color: ghostwhite;
+            font-size:10px;
+            padding: 0px 0px 2px 5px;
+            margin-right:5px;
+            border-radius: 5px;
+            text-align: center ;
+
+            display:inline-block;
+            width:130px;
+
+        }
+        #messagelabel-input{
+            color: black;
+            font-size:10px;
+            padding: 0px 0px 2px 5px;
+            margin-right:5px;
+            border-radius: 5px;
+            text-align: right ;
+            display:inline-block;
+            width:130px;
+
+        }
+        li{
+            margin: 8px;
+            list-style-type:none;
+        }
+        .person-input{
+            border-radius: 5px;
+            font-size: 10px;
+            border:1px solid #cceff5;
+            background:#fafcfd;
+            width: 200px;
         }
     </style>
 </head>
@@ -44,37 +79,46 @@
 
                     <div style="padding: 5px">
 
-                        <form action="/ZHZ/np_creat_person" method="post">
+                        <form action="/ZHZ/np_creat_person" method="post" style="margin-top:20px;padding: 10px;background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);border-radius: 6px">
                             {% csrf_token %}
                             <h5>人员登记</h5>
                             <p><input type="hidden" name="page" value="{{ page_title }}"></p>
                             <div class="input-group-sm">
-                                <input type="text" name="p_name" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >项目名称是：</span>
+                                <input type="text" name="p_name" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="机场名称/招标代理">
                             </div>
                             <div class="input-group-sm">
                                 <p style="vertical-align: bottom;font-size: smaller;margin-bottom: 0;margin-top: 3px">
                                     机场编号请填机场编号，招标代理编号777</p>
-                                <input type="text" name="p_no" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >机场编号/招标代理：</span>
+                                <input type="text" name="p_no" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="机场编号/招标代理">
                             </div>
                             <div class="input-group-sm">
-                                <input type="hidden" name="NewProjectID" class="form-control"
+                                <span id="messagelabel-input" hidden="hidden">立项项目编号：</span>
+                                <input type="hidden" name="NewProjectID" class="person-input"
                                        aria-label="Sizing example input "
                                        aria-describedby="inputGroup-sizing-sm" placeholder="立项项目编号" value="{{ NPID }}"
                                        readonly="readonly">
                             </div>
                             <div class="input-group-sm">
-                                <input type="text" name="name" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >联系人姓名：</span>
+                                <input type="text" name="name" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="联系人姓名"
                                        aria-describedby="basic-addon1">
                             </div>
 
                             <div class="input-group-sm">
-                                <input type="text" name="phone" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >联系人电话：</span>
+                                <input type="text" name="phone" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="联系人电话">
                             </div>
+                            <div>
+                                <span id="messagelabel-input" >选择性别：</span>
+                            </div>
                             <div class="form-check">
+                                <span id="messagelabel-input" ></span>
                                 <input class="form-check-input" type="radio" name="sex"
                                        id="flexRadioDefault1" value="male">
                                 <label class="form-check-label" checked for="flexRadioDefault1">
@@ -82,39 +126,47 @@
                                 </label>
                             </div>
                             <div class="form-check">
+                                <span id="messagelabel-input" ></span>
                                 <input class="form-check-input" type="radio" name="sex"
-                                       id="flexRadioDefault2" value="male">
+                                       id="flexRadioDefault2" value="female">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     female
                                 </label>
                             </div>
 
                             <div class="input-group-sm">
-                                <input type="text" name="company" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >公司名称：</span>
+                                <input type="text" name="company" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="公司名称">
                             </div>
                             <div class="input-group-sm">
-                                <input type="text" name="title" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >职位信息：</span>
+                                <input type="text" name="title" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="职位信息">
                             </div>
                             <div class="input-group-sm">
-                                <input type="email" name="email" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >联系邮箱：</span>
+                                <input type="email" name="email" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="联系邮箱">
                             </div>
                             <div class="input-group-sm">
-                                <input type="text" name="address" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >快递邮寄地址：</span>
+                                <input type="text" name="address" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="快递邮寄地址">
                             </div>
                             <div class="input-group-sm">
-                                <input type="text" name="idNO" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >身份证号：</span>
+                                <input type="text" name="idNO" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="身份证号">
                             </div>
                             <div class="input-group-sm">
-                                <input type="text" name="up_name" class="form-control" aria-label="Sizing example input"
+                                <span id="messagelabel-input" >登记人：</span>
+                                <input type="text" name="up_name" class="person-input" aria-label="Sizing example input"
                                        aria-describedby="inputGroup-sizing-sm" placeholder="登记人">
                             </div>
 
-                            <p><input type="submit" value="提交储存联系人"></p>
+                            <div style="text-align: center;font-size: 10px;margin-top: 20px"><input class="btn btn-outline-secondary btn-sm" type="submit" value="提交储存联系人"></div>
+
                         </form>
                     </div>
 
@@ -128,16 +180,16 @@
         <div class="col-sm-9">
             {{ right_title }}
             <div class="row align-items-start">
-                <div>
-                    <p>项目名称是：{{ NP_message.NewProject_name }}</p>
-                    <p>查询日志项目编号是：{{ NP_message.NewProjectID }}</p>
-                    <p>创建该项目时间：{{ NP_message.c_time }}</p>
-                    <p>对应合同编号是：{{ NP_message.Contracts_no }}</p>
-                    <p>项目类别是：{{ NP_message.NewProject_type }}</p>
-                    <p>项目对应机场名称：{{ NP_message.p_name }}</p>
-                    <p>项目对应机场编号：{{ NP_message.p_no }}</p>
-                    <p>该项目推进状态：{{ NP_message.NewProject_status }}</p>
-                </div>
+                <ul>
+                    <li > <span id="messagelabel" >项目名称是：</span>{{ NP_message.NewProject_name }}</li>
+                    <li ><span id="messagelabel" >查询日志项目编号是：</span>{{ NP_message.NewProjectID }}</li>
+                    <li ><span id="messagelabel" >创建该项目时间：</span>{{ NP_message.c_time }}</li>
+                    <li ><span id="messagelabel" >对应合同编号是：</span>{{ NP_message.Contracts_no }}</li>
+                    <li ><span id="messagelabel" >项目类别是：</span>{{ NP_message.NewProject_type }}</li>
+                    <li ><span id="messagelabel" >项目对应机场名称：</span>{{ NP_message.p_name }}</li>
+                    <li ><span id="messagelabel" >项目对应机场编号：</span>{{ NP_message.p_no }}</li>
+                    <li ><span id="messagelabel" >该项目推进状态：</span>{{ NP_message.NewProject_status }}</li>
+                </ul>
                 <p>项目背景简介：{{ NP_message.NewProjectDoc }}</p>
             </div>
             <hr class="my-2">
@@ -145,9 +197,10 @@
                 <h4 style="display: inline-flex">相关联系人记录如下</h4>
 
                 {% for i in NP_Person %}
-                    <div class="card text-white bg-primary " style="max-width: 16rem;margin: 5px">
+                    <div class="card  " style="min-height:20em;max-width: 16rem;margin: 5px;background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);box-shadow: 0 0 0 0.1px hsla(0,0%,100%,.2) inset,
+                                    0 .2em 0.4em rgba(0, 0, 0, 0.3);">
                         <div style="padding: 5px;margin-top: 5px">
-                            <h5 class="card-title" style="margin: 0px">姓名：{{ i.name }}</h5>
+                            <h5 class="card-title" style="margin-bottom:5px">姓名：{{ i.name }}</h5>
                         </div>
                         <div class="card-body" style="padding: 3px">
                             <p class="card-text tight">电话：{{ i.phone }}</p>

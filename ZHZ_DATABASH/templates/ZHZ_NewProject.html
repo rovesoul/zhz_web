@@ -8,7 +8,7 @@
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>NewPorject管理</title>
+    <title>NewPorject汇总</title>
 </head>
 <div class="jumbotron jumbotron-fluid">
     <div class="container-fluid">
@@ -27,7 +27,7 @@
             <hr class="my-4">
             <p>在本页面中，汇集了查看常见信息的内容，目前仅为部分，如需增加能容，请提供详细需求，并发送邮件到397703547@qq.com</p>
             {% include 'base1_left_choiceButton.html' %}
-            <div style="width: 100%;background-color: lightyellow">
+            <div style="width: 100%;background:whitesmoke;padding: 5px;margin-top: 20px">
                 <h4>最新项目日志一览(近期50条)</h4>
                 <p>点击日志可进入对应项目查看所有日志</p>
                 <div id="notes_look">
@@ -38,17 +38,17 @@
 
                             <a :href="'newprojectone/'+onedata.NewProjectID+'/'"
                                class="list-group-item list-group-item-action shadow-sm"
-                               style=" margin: 5px;padding: 5px;background-color: azure"
+                               style=" margin: 5px;padding: 5px;background-image: linear-gradient(to bottom right,  white 0%,lightcyan 100%);"
                                target="_blank">
-                                <div style="font-size: 8px;color: cornflowerblue">{{ onedata.NewProjectID }}</div>
+                                <div id="logtitle" style="font-size: 8px;color: darkslateblue;">{{ onedata.NewProjectID }}</div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
                                      class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                     <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                                 </svg>
-                                <span class="badge bg-light"
-                                      style="font-size: 8px;color: lightskyblue">{{ onedata.c_time.substring(0,10) }}
+                                <span id="logtime" class="badge bg-light"
+                                      style="font-size: 8px;color: steelblue">{{ onedata.c_time.substring(0,10) }}
                                     {{ onedata.c_time.substring(12,16) }}</span>
-                                <div style="width:10em;display: inline-block;color: lightskyblue">{{ onedata.note_one }}</div>
+                                <div class="container-s" style="display: inline-block;color: darkslateblue">{{ onedata.note_one }}</div>
                             </a>
 
                         </ul>
@@ -115,7 +115,7 @@
                                    placeholder="查找内容" v-model="findtext">
                         </div>
                         <div class="col-auto">
-                            <a type="submit" class=" btn-primary mb-3" @click="findtextdata">查找</a>
+                            <a class="btn btn-primary"  style="color: azure" @click="findtextdata">查找</a>
                         </div>
                         <p v-if="findtextready">查找{{ findtextready }}内容结果如下：</p>
                     </form>
@@ -129,13 +129,11 @@
                                 <path d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 0 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 1 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.118a.5.5 0 0 1-.447-.276l-1.232-2.465-2.512-4.185a.517.517 0 0 1 .809-.631l2.41 2.41A.5.5 0 0 0 6 9.5V1.75A.75.75 0 0 1 6.75 1zM8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v6.543L3.443 6.736A1.517 1.517 0 0 0 1.07 8.588l2.491 4.153 1.215 2.43A1.5 1.5 0 0 0 6.118 16h6.302a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5.114 5.114 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.632 2.632 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046l-.048.002zm2.094 2.025z"/>
                             </svg>
                             <div style="width:8em;display: inline-block">{{ onedata.NewProjectID }}</div>
-                            <div style="width:25em;display: inline-block;margin-right: 2px">{{ onedata.NewProject_name }}</div>
+                            <div style="width:30em;overflow: hidden; display: inline-block;margin-right: 20px">{{ onedata.NewProject_name }}</div>
                             <div style="width:6em;display: inline-block">{{ onedata.NewProject_status }}</div>
                             <div style="width:5em;display: inline-block">{{ onedata.NewProject_type }}</div>
-                            <div style="width:12em;display: inline-block">{{ onedata.p_name }}</div>
-                            <span class="badge bg-secondary">{{ onedata.c_time.substring(0,10) }}</span>
-                            <span class="badge bg-light text-dark"
-                                  style="margin-right: 3px">{{ onedata.c_time.substring(12,16) }}</span>
+                            <div style="width:14em;display: inline-block">{{ onedata.p_name }}</div>
+                            <span class="badge bg-secondary">{{ onedata.c_time.substring(0,10) }}&nbsp{{ onedata.c_time.substring(11,16) }}</span>
                             <div class="badge bg-dark" style="text-align: left;width:13em;display: inline-block">
                                 合同号：{{ onedata.Contracts_no }}</div>
                         </a>

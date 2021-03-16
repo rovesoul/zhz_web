@@ -54,10 +54,10 @@ def New_project_oneself(request, NPID):
     print("独立页面", NP_persons)
     FridenWeb = models.FriendWebsit.objects.all()
     dicts = {
-        'pagename': '新立项项目独立页面',
+        'pagename': '项目详情页面',
         'page_title': '新立项项目日志',
         'FriendWeb': FridenWeb.values_list(),
-        'right_title': '新立项项目列表',
+        'right_title': '项目背景及日志记录',
         'NPID': NPID,  # new project项目号
         'NP_message': NP_message,  # new project项目名等
         'NP_Person': NP_persons,

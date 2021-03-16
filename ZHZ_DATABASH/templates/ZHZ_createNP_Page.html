@@ -18,6 +18,10 @@
         .input-group-sm {
             margin-bottom: 2px;
         }
+        .input-group-text{
+            display:inline-block;
+            width:130px;
+        }
     </style>
 </head>
 <div class="jumbotron jumbotron-fluid">
@@ -53,7 +57,7 @@
                                        placeholder="查找内容" v-model="findtext">
                             </div>
                             <div class="col-auto">
-                                <a type="submit" class=" btn-primary mb-3" @click="findtextdata">查找</a>
+                                <a class="btn btn-primary" style="color: azure" @click="findtextdata">查找</a>
                             </div>
                             <p v-if="findtextready">查找{{ findtextready }}内容结果如下({{ airports.length }}条)：</p>
                         </form>
