@@ -45,6 +45,7 @@ class Project_Detail(models.Model):
         ('东北', "东北"),
         ('华南', "华南"),
         ('西北', "西北"),
+        ('西南', "西南"),
         ('新疆', "新疆"),
     )
     p_name = models.CharField(unique=True, max_length=200, verbose_name='机场名称')
@@ -312,6 +313,7 @@ class NewCompanyProject(models.Model):
         ('检测类', "检测类"),
         ('外包类', "外包类"),
         ('配合类', "配合类"),
+        ('其他类', "其他类"),
     )
     project_status = (
         ('进行中', "进行中"),
