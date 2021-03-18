@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,TradeContracts,Device,Person,LuggageCompany, FriendWebsit, Thing_end_line,NewCompanyProject
+from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,TradeContracts,Device,Person,LuggageCompany, FriendWebsit, Thing_end_line,NewCompanyProject,NP_Note
 # Register your models here.
 @admin.register(User)
 class USER(admin.ModelAdmin):
@@ -86,6 +86,15 @@ class NewCompanyProject(admin.ModelAdmin):
     search_fields = ('NewProject_name','NewProject_type','NewProject_status','NewProjectDoc')  #可搜索字段
     list_editable = ('NewProject_name','NewProject_status','NewProjectDoc') #默认可编辑字段
     list_filter = ('NewProject_type','NewProject_status')  # 过滤器
+    date_hierarchy = 'c_time'
+
+@admin.register(NP_Note)
+class NP_Notes(admin.ModelAdmin):
+    '''设置显示字段,这是自己加的，如果不需要可以在下边register中删掉'''
+    list_display = ('NewProjectID','NewProject_name','note_one','c_time')
+    search_fields = ('NewProject_name','NewProjectID','note_one','c_time')  #可搜索字段
+    list_editable = ('NewProject_name','note_one',) #默认可编辑字段
+    list_filter = ('NewProjectID','NewProject_name','c_time')  # 过滤器
     date_hierarchy = 'c_time'
 
 # 以下未编辑

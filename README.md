@@ -27,3 +27,7 @@
  
  ## 数据库包括
  - 友情链接
+ 
+ ## 推送操作：
+ - 创建表格记录`python manage.py makemigrations`
+ - 表格推动到数据库`python manage.py migrate`

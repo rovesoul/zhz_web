@@ -133,6 +133,7 @@ def NP_create_log(request):
     if request.method == 'POST':
         try:
             NewProjectID = request.POST.get('NewProjectID')
+            NewProject_name = request.POST.get('NewProject_name')
             note_one = request.POST.get('note_one')
             ups_time = datetime.datetime.now()
 
@@ -140,10 +141,11 @@ def NP_create_log(request):
             if note_one != '':
                 models.NP_Note.objects.create(
                     NewProjectID=NewProjectID,
+                    NewProject_name=NewProject_name,
                     note_one=note_one,
                     c_time=ups_time,
                 )
-                returntext = f'{NewProjectID}项目,事项：{note_one},记录成功，请关闭此页。'
+                returntext = f'{NewProjectID}项目,事项：{note_one},记录成功。<br><p>请关闭此页。</p>'
                 return HttpResponse(returntext)
             else:
                 return HttpResponse("如果有记录，事项为必填项，请返回输入。")
@@ -239,7 +241,7 @@ def NP_create_NP_POST(request):
                     note_one="创建此项目",
                     c_time=c_time,
                 )
-                returntext = f'{NewProject_name}项目,事项：{NewProject_type},记录成功，请关闭此页。'
+                returntext = f'{NewProject_name}项目,事项：{NewProject_type},记录成功<br><p>请关闭此页。</p>'
                 # return HttpResponse(returntext)
                 return HttpResponseRedirect(f"/ZHZ/newproject")
             else:
