@@ -363,4 +363,4 @@ class NP_Note(models.Model):
 
     class Meta:
         ordering = ['-c_time','NewProjectID']
-        verbose_name_plural = 'NP事情记录'
+        verbose_name_plural = '新立项项目NP事情记录'
