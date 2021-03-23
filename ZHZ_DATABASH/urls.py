@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
-from . import views,dataView,NewProjectView
+from . import views,dataView,NewProjectView,PersonView
 
 """exam 的url"""
 
@@ -8,7 +8,12 @@ urlpatterns = [
     # 下边直接浏览页面
     url(r'^$', views.roots, name='a'),
     url(r'^choice$', views.choice, name='选择页面'),
-    url(r'^person$', dataView.person_info, name='联系人表'),
+    # 干系人页面
+    url(r'^person$', PersonView.Person_Page, name='联系人表'),
+    # 干系人json汇总（创建页面用）
+    url(r'^allpersons$',PersonView.All_Persons_json,name="项目干系人json接口"),
+    url(r'^personfind/(.+)/$',PersonView.Person_findone_json,name="干系人搜索"),
+
     url(r'^weakdevice$', dataView.airport_weak_device, name='弱电设备'),
     # 新项目管理统计页面
     url(r'^newproject$',NewProjectView.New_project,name="新项目汇总列表页面"),
