@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
-from . import views,dataView,NewProjectView,PersonView
+from . import views,dataView,NewProjectView,PersonView,AirplanProjectView
 
 """exam 的url"""
 
@@ -33,7 +33,10 @@ urlpatterns = [
     url(r'^np_creat_log$',NewProjectView.NP_create_log,name="NP对应创建log日志接口"),
     url(r'^np_all_new_notes_json$',NewProjectView.get_near_project_note,name="新日志列表"),
 
-
+    # 机场项目信息
+    url(r'^airports$',AirplanProjectView.AirPort_Page,name="机场项目页面"),
+    url(r'^airportsJson$',AirplanProjectView.All_Airport_json,name="机场项目json接口"),
+    url(r'^airportsfind/(.+)/$',AirplanProjectView.Airport_findone_json,name="机场项目搜索"),
 
 
     ## 拿页面
