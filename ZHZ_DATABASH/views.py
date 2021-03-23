@@ -26,6 +26,7 @@ def choice(request):
         'count_airport_device':lists[6],
         'alarm_airport_count':lists[7],
         'count_luggage': lists[8],
+        'count_nps': lists[9],
         'FriendWeb':FridenWeb.values_list(),
     }
 
@@ -48,6 +49,8 @@ def get_count_contract():
     count_companys_contract= models.TradeContracts.objects.all()
     # 有弱电设备信息的机场数量
     count_airport_have_weak_device= models.ProjectDevice.objects.all()
+    # 立项项目数
+    count_np =models.NewCompanyProject.objects.all()
     have_weak_device_set = set([i[1] for i in count_airport_have_weak_device.values_list()]) # (1, '哈尔滨太平机场', '航显', '显.... 筛出机场名不重复
     # 有多少个弱电设备数量
     count_airport_device= models.ProjectDevice.objects.all()
@@ -64,6 +67,7 @@ def get_count_contract():
           len(count_airport_device), # 6弱电设备数
           len(alarm_airport_count), # 7需要提示机场数
           len(count_luggage),  # 8 需要提示机场数
+          len(count_np),  # 9 需要提示机场数
     ]
     return list
 
