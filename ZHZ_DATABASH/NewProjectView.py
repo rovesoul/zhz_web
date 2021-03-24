@@ -238,6 +238,7 @@ def NP_create_NP_POST(request):
                 )
                 models.NP_Note.objects.create(
                     NewProjectID=NewProjectID,
+                    NewProject_name=NewProject_name,
                     note_one="创建此项目",
                     c_time=c_time,
                 )
