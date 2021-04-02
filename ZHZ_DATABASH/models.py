@@ -364,3 +364,14 @@ class NP_Note(models.Model):
     class Meta:
         ordering = ['-c_time','NewProjectID']
         verbose_name_plural = '新立项项目NP事情记录'
+
+
+class img(models.Model):
+    name = models.CharField(max_length=20)
+    image = models.ImageField(upload_to='booktest', verbose_name='图片', null=True)
+    def __str__(self):
+        return self.__doc__ + ':' + self.name
+
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = '图片内容'

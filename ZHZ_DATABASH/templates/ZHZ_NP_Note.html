@@ -10,6 +10,9 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>{{ pagename }}</title>
     <style type="text/css">
+        .imgs{
+            background-image:url("../static/imgs/2.jpg");
+        }
         .tight {
             padding: 0px;
             margin: 0px;
@@ -55,7 +58,8 @@
         }
     </style>
 </head>
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid imgs" >
+
     <div class="container-fluid">
         <h1 class="display-4">{{ page_title }}</h1>
         <hr class="my-4">
@@ -269,7 +273,7 @@
                             </div>
                             <div class="col-sm-9 fs-6 lh-lg"
                                  style="min-height: 30px;padding: 25px;text-align: justify;">
-                                {{ onedata.note_one }}
+                                <pre style="margin: 0px">{{ onedata.note_one }}</pre>
                             </div>
                         </div>
                     </ul>

@@ -52,6 +52,7 @@ def New_project_oneself(request, NPID):
     except:
         NP_persons = ""
     print("独立页面", NP_persons)
+
     FridenWeb = models.FriendWebsit.objects.all()
     dicts = {
         'pagename': '项目详情页面',
