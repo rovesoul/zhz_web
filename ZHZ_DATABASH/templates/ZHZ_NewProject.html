@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,14 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
         .jumbotron{
-
+            background-image: url({% static "imgs/mac.jpg" %});
+            background-size:100%;
+            background-position: bottom;
+        }
+        H1{
+            color: white;
+            font-weight: 800;
+            padding-left: 1em;
         }
     </style>
     <title>NewPorject汇总</title>
@@ -18,7 +26,6 @@
 <div class="jumbotron jumbotron-fluid">
     <div class="container-fluid">
         <h1 class="display-4">{{ page_title }}</h1>
-        <hr class="my-4">
         {% block subtitle %}<br>
         {% endblock %}
     </div>
