@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,TradeContracts,Device,Person,LuggageCompany, FriendWebsit, Thing_end_line,NewCompanyProject,NP_Note,img
+from ZHZ_DATABASH.models import User,Project_Detail,ProjectDevice,Contracts,TradeContracts,Device,Person,LuggageCompany, FriendWebsit, Thing_end_line,NewCompanyProject,NP_Note
 # Register your models here.
 @admin.register(User)
 class USER(admin.ModelAdmin):
@@ -100,7 +100,6 @@ class NP_Notes(admin.ModelAdmin):
 # 以下未编辑
 admin.site.register(ProjectDevice)
 admin.site.register(TradeContracts)
-admin.site.register(img)
 
 
 

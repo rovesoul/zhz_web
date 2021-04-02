@@ -8,6 +8,11 @@
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .jumbotron{
+
+        }
+    </style>
     <title>NewPorject汇总</title>
 </head>
 <div class="jumbotron jumbotron-fluid">
@@ -50,7 +55,7 @@
                                 </svg>
                                 <span id="logtime" class="badge bg-light"
                                       style="font-size: 8px;color: steelblue">{{ onedata.c_time.substring(0,10) }}
-                                    {{ onedata.c_time.substring(12,16) }}</span>
+                                    {{ onedata.c_time.substring(11,16) }}</span>
                                 <div class="container-s" style="display: inline-block;font-size: 12px;color: darkslateblue">{{ onedata.note_one }}</div>
                             </a>
 
