@@ -99,8 +99,8 @@ def get_map():
 
     return c.render_embed
 
-# def get_zhz_map():
-def get_zhz_map(request):
+def get_zhz_map():
+# def get_zhz_map(request):
     # df_zhz = models.Project_Detail.objects.filter(construction_situation="在建")
     # df_zhz = models.Project_Detail.objects.raw('SELECT contracts.p_name,  project_detail.longitude, project_detail.latitude,project_detail.terminal_area,project_detail.run_length,project_detail.run_class,project_detail.active_time,contracts.contract_name from contracts,project_detail where contracts.p_name=project_detail.p_name;')
     cursor.execute('SELECT ZHZ_DATABASH_contracts.p_name, ZHZ_DATABASH_project_detail.longitude,ZHZ_DATABASH_project_detail.latitude,ZHZ_DATABASH_project_detail.terminal_area,ZHZ_DATABASH_project_detail.run_length,ZHZ_DATABASH_project_detail.run_class,ZHZ_DATABASH_project_detail.active_time,ZHZ_DATABASH_contracts.name from ZHZ_DATABASH_contracts,ZHZ_DATABASH_project_detail where ZHZ_DATABASH_contracts.p_no=ZHZ_DATABASH_project_detail.p_no;')
@@ -159,6 +159,6 @@ def get_zhz_map(request):
     add_points(df_zhz,)
 
 
-    # return c.render_embed
-    return HttpResponse(c.render_embed())
+    return c.render_embed
+    # return HttpResponse(c.render_embed())
 
