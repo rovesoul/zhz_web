@@ -10,12 +10,13 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
-        .jumbotron{
+        .jumbotron {
             background-image: url({% static "imgs/planport.jpg" %});
-            background-size:100%;
+            background-size: 100%;
             background-position: bottom;
         }
-        H1{
+
+        H1 {
             color: white;
             font-weight: 800;
             padding-left: 1em;
@@ -42,67 +43,68 @@
             <div class="alert alert-secondary" role="alert" style="margin-top: 20px">
                 本页面按创建时间展示所记录的项目，左侧下方为近期记录的日志；右侧为具体项目，每个项目可以点击进入查看日志详情、联系人、日志内容等。
             </div>
-{#            <div style="width: 100%;background:whitesmoke;padding: 5px;margin-top: 20px">#}
-{#                <h4>最新项目日志一览(近期50条)</h4>#}
-{#                <p>点击日志可进入对应项目查看所有日志</p>#}
-{#                <div id="notes_look">#}
-{#                     用VUE 实现 抓取列表#}
-{#                    {% verbatim notesblock %}#}
-{#                        <ul class="list-group list-group-flush" v-for="(onedata , index) in notes" v-if="index < 50"#}
-{#                            :key="onedata" style="width: 95%;">#}
-{##}
-{#                            <a :href="'newprojectone/'+onedata.NewProjectID+'/'"#}
-{#                               class="list-group-item list-group-item-action shadow-sm"#}
-{#                               style=" margin: 5px;padding: 5px;background-image: linear-gradient(to bottom right,  white 0%,lightcyan 100%);"#}
-{#                               target="_blank">#}
-{#                                <p id="logtitle" style="font-size: 8px;color: darkslateblue;margin-bottom: 0px">{{ onedata.NewProjectID }}:<span>{{ onedata.NewProject_name }}</span>#}
-{#                                </p>#}
-{#                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"#}
-{#                                     class="bi bi-pencil-fill" viewBox="0 0 16 16">#}
-{#                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>#}
-{#                                </svg>#}
-{#                                <span id="logtime" class="badge bg-light"#}
-{#                                      style="font-size: 8px;color: steelblue">{{ onedata.c_time.substring(0,10) }}#}
-{#                                    {{ onedata.c_time.substring(12,16) }}</span>#}
-{#                                <div class="container-s" style="display: inline-block;font-size: 12px;color: darkslateblue">{{ onedata.note_one }}</div>#}
-{#                            </a>#}
-{##}
-{#                        </ul>#}
-{#                    {% endverbatim notesblock %}#}
-{#                </div>#}
-{#                <script>#}
-{#                    var Vue = new Vue({#}
-{#                        el: "#notes_look",#}
-{#                        data: {#}
-{#                            message2: "？？？",#}
-{#                            notes: "",#}
-{##}
-{#                        },#}
-{#                        created: function () {#}
-{#                            var that = this;#}
-{#                            let url = '/ZHZ/np_all_new_notes_json';#}
-{#                            axios.get(url).then(#}
-{#                                function (response) {#}
-{#                                    console.log(response.data); //看返回内容#}
-{#                                    that.notes = response.data.notes#}
-{##}
-{#                                    //that.classic = response.data.经典#}
-{#                                    //console.log(response.data.经典); //看返回内容#}
-{#                                },#}
-{#                                function (err) {#}
-{#                                }#}
-{#                            );#}
-{##}
-{#                        },#}
-{##}
-{#                    })#}
-{##}
-{#                </script>#}
-{##}
-{##}
-{#            </div>#}
+            {#            <div style="width: 100%;background:whitesmoke;padding: 5px;margin-top: 20px">#}
+            {#                <h4>最新项目日志一览(近期50条)</h4>#}
+            {#                <p>点击日志可进入对应项目查看所有日志</p>#}
+            {#                <div id="notes_look">#}
+            {#                     用VUE 实现 抓取列表#}
+            {#                    {% verbatim notesblock %}#}
+            {#                        <ul class="list-group list-group-flush" v-for="(onedata , index) in notes" v-if="index < 50"#}
+            {#                            :key="onedata" style="width: 95%;">#}
+            {##}
+            {#                            <a :href="'newprojectone/'+onedata.NewProjectID+'/'"#}
+            {#                               class="list-group-item list-group-item-action shadow-sm"#}
+            {#                               style=" margin: 5px;padding: 5px;background-image: linear-gradient(to bottom right,  white 0%,lightcyan 100%);"#}
+            {#                               target="_blank">#}
+            {#                                <p id="logtitle" style="font-size: 8px;color: darkslateblue;margin-bottom: 0px">{{ onedata.NewProjectID }}:<span>{{ onedata.NewProject_name }}</span>#}
+            {#                                </p>#}
+            {#                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"#}
+            {#                                     class="bi bi-pencil-fill" viewBox="0 0 16 16">#}
+            {#                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>#}
+            {#                                </svg>#}
+            {#                                <span id="logtime" class="badge bg-light"#}
+            {#                                      style="font-size: 8px;color: steelblue">{{ onedata.c_time.substring(0,10) }}#}
+            {#                                    {{ onedata.c_time.substring(12,16) }}</span>#}
+            {#                                <div class="container-s" style="display: inline-block;font-size: 12px;color: darkslateblue">{{ onedata.note_one }}</div>#}
+            {#                            </a>#}
+            {##}
+            {#                        </ul>#}
+            {#                    {% endverbatim notesblock %}#}
+            {#                </div>#}
+            {#                <script>#}
+            {#                    var Vue = new Vue({#}
+            {#                        el: "#notes_look",#}
+            {#                        data: {#}
+            {#                            message2: "？？？",#}
+            {#                            notes: "",#}
+            {##}
+            {#                        },#}
+            {#                        created: function () {#}
+            {#                            var that = this;#}
+            {#                            let url = '/ZHZ/np_all_new_notes_json';#}
+            {#                            axios.get(url).then(#}
+            {#                                function (response) {#}
+            {#                                    console.log(response.data); //看返回内容#}
+            {#                                    that.notes = response.data.notes#}
+            {##}
+            {#                                    //that.classic = response.data.经典#}
+            {#                                    //console.log(response.data.经典); //看返回内容#}
+            {#                                },#}
+            {#                                function (err) {#}
+            {#                                }#}
+            {#                            );#}
+            {##}
+            {#                        },#}
+            {##}
+            {#                    })#}
+            {##}
+            {#                </script>#}
+            {##}
+            {##}
+            {#            </div>#}
         </div>
         <div class="col-sm-9">
+            {{ airportsmap |safe }}
             {{ right_title }}
 
             <div id="app">
@@ -127,7 +129,7 @@
                                    placeholder="查找内容" v-model="findtext">
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary"  style="color: azure" @click="findtextdata">查找</a>
+                            <a class="btn btn-primary" style="color: azure" @click="findtextdata">查找</a>
                         </div>
                         <p v-if="findtextready">查找{{ findtextready }}内容结果如下：</p>
                     </form>
@@ -136,21 +138,22 @@
                     <p class="alert alert-primary" role="alert">
                         点击查看项目的百度词条内容。
                     </p>
-                    <ul class="list-group list-group-flush" v-for="(onedata , index)  in datas" :key="onedata" >
-                        <a :href="'https://baike.baidu.com/item/'+onedata.p_name" class="list-group-item list-group-item-action shadow-sm" style="margin: 2px" target="_blank">
-                            <div style="width:14em;display: inline-block">名称：{{ onedata.p_name }}</div>
-                            <div style="width:8em;display: inline-block;margin-right: 20px">编号：{{ onedata.p_no }}</div>
-                            <div style="width:6em;display: inline-block">省：{{ onedata.provence }}</div>
-                            <div style="width:8em;display: inline-block">管理局：{{ onedata.region }}</div>
-                            <div style="width:11em;display: inline-block">飞行区等级：{{ onedata.run_class }}</div>
-                            <div style="width:10em;display: inline-block">跑道：{{ onedata.run_length }}</div>
-                            <div style="width:12em;display: inline-block">航站楼面积：{{ onedata.terminal_area }}</div>
-                            <div style="width:12em;display: inline-block">架次：{{ onedata.aircraft_sorties }}</div>
-                            <br>
-                            <div style="width:30em;display: inline-block">吞吐量：{{ onedata.throughput }}</div>
-                            <div style="width:10em;display: inline-block">启用：{{ onedata.active_time }}</div>
+                    <ul class="list-group list-group-flush" v-for="(onedata , index)  in datas" :key="onedata">
+                    <a :href="'https://baike.baidu.com/item/'+onedata.p_name"
+                       class="list-group-item list-group-item-action shadow-sm" style="margin: 2px" target="_blank">
+                        <div style="width:14em;display: inline-block">名称：{{ onedata.p_name }}</div>
+                        <div style="width:8em;display: inline-block;margin-right: 20px">编号：{{ onedata.p_no }}</div>
+                        <div style="width:6em;display: inline-block">省：{{ onedata.provence }}</div>
+                        <div style="width:8em;display: inline-block">管理局：{{ onedata.region }}</div>
+                        <div style="width:11em;display: inline-block">飞行区等级：{{ onedata.run_class }}</div>
+                        <div style="width:10em;display: inline-block">跑道：{{ onedata.run_length }}</div>
+                        <div style="width:12em;display: inline-block">航站楼面积：{{ onedata.terminal_area }}</div>
+                        <div style="width:12em;display: inline-block">架次：{{ onedata.aircraft_sorties }}</div>
+                        <br>
+                        <div style="width:30em;display: inline-block">吞吐量：{{ onedata.throughput }}</div>
+                        <div style="width:10em;display: inline-block">启用：{{ onedata.active_time }}</div>
 
-                        </a>
+                    </a>
 
                 {% endverbatim myblock %}
             </div>

@@ -4,15 +4,23 @@ from django.http import HttpResponseRedirect
 from . import models
 from django.db.models import Q
 from django.http import JsonResponse
+from django.shortcuts import render
 
 from django.views.decorators import csrf
 import json
 import datetime
-
+from .AirPortsView import get_map
 
 # from django.core import serializers
-
+# from .AirPortsView import airport_map
 # -----------------------------page部分---
+
+# def maps(request):
+#     HttpResponse(airport_map.render_embed())
+
+
+
+
 def AirPort_Page(request):
     """
     新项目，
@@ -22,7 +30,8 @@ def AirPort_Page(request):
         'pagename': '机场信息查看',
         'page_title': '各机场信息',
         'FriendWeb': FridenWeb.values_list(),
-        'right_title': '备用、后台改'
+        'right_title': '备用、后台改',
+        'airportsmap':get_map(),
     }
     return render(request, 'ZHZ_AirportProjectMessage.html', dicts)
 

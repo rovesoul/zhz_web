@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
-from . import views,dataView,NewProjectView,PersonView,AirplanProjectView
+from . import views,dataView,NewProjectView,PersonView,AirplanProjectView,AirPortsView
 
 """exam 的url"""
 
@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^airports$',AirplanProjectView.AirPort_Page,name="机场项目页面"),
     url(r'^airportsJson$',AirplanProjectView.All_Airport_json,name="机场项目json接口"),
     url(r'^airportsfind/(.+)/$',AirplanProjectView.Airport_findone_json,name="机场项目搜索"),
+    # url(r'^test/$',AirPortsView.get_map,name="机场项目搜索"),
 
 
     ## 拿页面

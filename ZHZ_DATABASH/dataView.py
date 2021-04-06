@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from. import models
 
+
 # -----------------------------page部分---
 def airport_info(request):
     return HttpResponse("机场信息表")

@@ -266,7 +266,7 @@ def allflight() -> Geo:
         for num in points_list:
             # print('加点')
             c.add_coordinate(num[0], num[2], num[3])
-
+            print(num[7])
             # print('加值')
             c.add(
                 num[7],
