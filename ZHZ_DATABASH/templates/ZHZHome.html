@@ -8,16 +8,35 @@
         .databash{
             background-image: linear-gradient(to bottom , gainsboro, whitesmoke);
         }
+        H1{
+            color: white;
+            font-weight: 800;
+            padding-left: 1em;
+        }
+        .hsub{
+            color: white;
+            font-weight: 400;
+            padding-left: 4em;
+            padding-top: 1em;
+        }
+        .whats{
+            color: gray;
+            font-weight: 400;
+            padding-left: 4em;
+        }
+        .align-middle{
+            color: orangered;
+        }
     </style>
 </head>
 {% extends 'moban_page_base1.html' %}
 <body>
 {% block subtitle %}
-<p>本页关注统计数据，点击超级链接可进入具体页面</p>
+<p class="hsub">本页关注统计数据，点击超级链接可进入具体页面</p>
 {% endblock subtitle %}
 
 {% block body_left %}
-<p>如果这句话是中文的呢，也许可以自动换行.一串字母不行</p>
+<p class="whats">body_left预留</p>
 {% endblock body_left %}
 
 {% block body_right %}
@@ -35,12 +54,14 @@
 
     <div class="col-md-2 col-sm-4 text-center databash" >
         <a style="text-decoration: none;color: #333333" href="/ZHZ/newproject" target="_blank">
-        <span class="databash_title">立项项目数</span>
+        <span class="databash_title">立项项目数|记录数</span>
         <div class="databash_value_div">
             <span class="align-middle font-weight-bold databash_value_span"
                   >{{ count_nps }}</span>
+            <span class="align-middle font-weight-bold databash_value_span" style="color: orangered;margin-left: 0.2em"
+                  >{{ count_nplogs }}</span>
         </div>
-        <span class="databash_foot">个</span>
+        <span class="databash_foot">个|条</span>
         </a>
     </div>
 
@@ -234,7 +255,7 @@
 {% endblock body_right %}
 
 {% block body_foot %}
-    <div class="container-fluid" style="clear: both;bottom: 0"  >
+    <div class="container-fluid" style="clear: both;bottom: 0;padding: 0px"  >
         {% include 'footers.html'%}
     </div>
 {% endblock body_foot %}

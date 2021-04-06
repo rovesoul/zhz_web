@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,12 +9,23 @@
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>NewPorject汇总</title>
+    <style>
+        .jumbotron{
+            background-image: url({% static "imgs/hands.jpg" %});
+            background-size: 100%;
+            background-position: bottom;
+        }
+        H1{
+            color: white;
+            font-weight: 800;
+            padding-left: 1em;
+        }
+    </style>
+    <title>干系人汇总</title>
 </head>
 <div class="jumbotron jumbotron-fluid">
     <div class="container-fluid">
         <h1 class="display-4">{{ page_title }}</h1>
-        <hr class="my-4">
         {% block subtitle %}<br>
         {% endblock %}
     </div>
