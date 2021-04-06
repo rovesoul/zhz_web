@@ -30,7 +30,7 @@ def Contracts_page(request):
         'pagename': '合同信息查看',
         'page_title': '各合同信息',
         'FriendWeb': FridenWeb.values_list(),
-        'right_title': '备用、后台改',
+        'right_title': '合同查查看',
         'airportsmap':get_zhz_map(),
     }
     return render(request, 'ZHZ_contractMessage.html', dicts)
