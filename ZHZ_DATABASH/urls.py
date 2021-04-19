@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
-from . import views,dataView,NewProjectView,PersonView,AirplanProjectView,AirPortsView,ZHZ_contractView
+from . import views,dataView,NewProjectView,PersonView,AirplanProjectView,AirPortsView,ZHZ_contractView,view_login_out_register
 
 """exam 的url"""
 
@@ -43,6 +43,9 @@ urlpatterns = [
     url(r'^contracts$',ZHZ_contractView.Contracts_page,name="合同页面"),
     url(r'^contractsJson$',ZHZ_contractView.All_Contract_json,name="机场项目json接口"),
     url(r'^contractsfind/(.+)/$',ZHZ_contractView.Contract_findone_json,name="合同项目搜索"),
+
+    url(r'^login/$', view_login_out_register.login, name='登录页面'),
+    url(r'^logout/$', view_login_out_register.logout, name='登出页面'),
 
 
 

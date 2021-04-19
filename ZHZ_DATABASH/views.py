@@ -7,8 +7,8 @@ def roots(request):
     return HttpResponse("这是zhz首页,首页无它，需要探索")
 
 def choice(request):
-    # if not request.session.get("is_login", None):
-    #     return redirect("/demo/login")
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     lists = get_count_contract()
     FridenWeb = models.FriendWebsit.objects.all()
 

@@ -39,6 +39,7 @@ cursor = connection.cursor()
 
 
 def get_map():
+
     df_jiyou = models.Project_Detail.objects.filter(construction_situation="既有")
     df_zaijian = models.Project_Detail.objects.filter(construction_situation="在建")
     df_xinzeng = models.Project_Detail.objects.filter(construction_situation="新增")

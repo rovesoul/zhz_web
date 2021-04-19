@@ -17,6 +17,8 @@ def Person_Page(request):
     """
     新项目，
     """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     FridenWeb = models.FriendWebsit.objects.all()
     dicts = {
         'pagename': '联系人管理查看',
@@ -31,6 +33,8 @@ def All_Persons_json(request):
     """
     获取所有立项项目列表
     """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     NewProjectS = models.Person.objects.all().values()
     data = {}
     data["persons"] = list(NewProjectS)
@@ -42,6 +46,8 @@ def Person_findone_json(request, findtext):
     """
     新项目日志的的接口
     """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     print("NPNOTE Json 接口中", findtext, )
     try:
         NPfindtext = models.Person.objects.filter(
@@ -65,6 +71,8 @@ def New_project_oneself(request, NPID):
     """
     新项目独立页面
     """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     try:
         NP_message = models.NewCompanyProject.objects.filter(NewProjectID=NPID).values().first()
     except:
@@ -93,6 +101,8 @@ def NP_NOTE_json(request, NPID):
     """
     新项目日志的的接口
     """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     print("NPNOTE Json 接口中", NPID, )
     try:
         NPOneselfNotes = models.NP_Note.objects.filter(NewProjectID=NPID).values()
@@ -104,6 +114,8 @@ def NP_NOTE_json(request, NPID):
 
 
 def NP_create_person(request):
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     if request.method == 'POST':
         try:
             p_name = request.POST.get('p_name')
@@ -153,6 +165,8 @@ def NP_create_person(request):
 
 
 def NP_create_log(request):
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     if request.method == 'POST':
         try:
             NewProjectID = request.POST.get('NewProjectID')
@@ -185,6 +199,8 @@ def get_near_project_note(request):
     """
     新项目的接口
     """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     near_project_notes = models.NP_Note.objects.all().values()
     data = {}
     data["notes"] = list(near_project_notes)
@@ -193,6 +209,8 @@ def get_near_project_note(request):
 
 
 def NP_create_NP_Page(request):
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     FridenWeb = models.FriendWebsit.objects.all()
     dicts = {
         'pagename': '新建一个项目吧',
@@ -204,6 +222,8 @@ def NP_create_NP_Page(request):
 
 
 def NP_create_NP_POST(request):
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     if request.method == 'POST':
         def get_new_NP_number():
             """获取新的项目编号"""
@@ -285,6 +305,8 @@ def AirPortMessage_json(request, findtext):
     """
     新项目日志的的接口
     """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     print("NPNOTE Json 接口中", findtext, )
     try:
         AirPortfinded = models.Project_Detail.objects.filter(

@@ -25,6 +25,8 @@ def Contracts_page(request):
     """
     新项目，
     """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     FridenWeb = models.FriendWebsit.objects.all()
     dicts = {
         'pagename': '合同信息查看',
@@ -37,6 +39,8 @@ def Contracts_page(request):
 
 
 def All_Contract_json(request):
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     """
     获取所有立项项目列表
     """
@@ -48,6 +52,8 @@ def All_Contract_json(request):
 
 
 def Contract_findone_json(request, findtext):
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
     """
     新项目日志的的接口
     """
