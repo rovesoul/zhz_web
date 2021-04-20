@@ -28,12 +28,18 @@ from pyecharts.charts import Bar
 
 # from django.core import serializers
 from django.db import connection, connections
-cursor = connection.cursor()
+
 # cursor = connections['default'].cursor()
 
 # -----------------------------page部分---
 
-
+def close_old_connections():
+    """关闭连接池函数"""
+    connnum = 0
+    for conn in connections.all():
+        connnum += 1
+        conn.close_if_unusable_or_obsolete()
+        print('close conn', connnum)
 
 # 数据源
 
@@ -101,6 +107,7 @@ def get_map():
     return c.render_embed
 
 def get_zhz_map():
+    cursor = connection.cursor()
 # def get_zhz_map(request):
     # df_zhz = models.Project_Detail.objects.filter(construction_situation="在建")
     # df_zhz = models.Project_Detail.objects.raw('SELECT contracts.p_name,  project_detail.longitude, project_detail.latitude,project_detail.terminal_area,project_detail.run_length,project_detail.run_class,project_detail.active_time,contracts.contract_name from contracts,project_detail where contracts.p_name=project_detail.p_name;')
@@ -160,6 +167,7 @@ def get_zhz_map():
     add_points(df_zhz,)
 
 
+    close_old_connections()
     return c.render_embed
     # return HttpResponse(c.render_embed())
 
