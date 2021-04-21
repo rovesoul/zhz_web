@@ -91,7 +91,7 @@ class NewCompanyProject(admin.ModelAdmin):
 @admin.register(NP_Note)
 class NP_Notes(admin.ModelAdmin):
     '''设置显示字段,这是自己加的，如果不需要可以在下边register中删掉'''
-    list_display = ('NewProjectID','NewProject_name','note_one','c_time')
+    list_display = ('NewProjectID','NewProject_name','note_one',"notename",'c_time')
     search_fields = ('NewProject_name','NewProjectID','note_one','c_time')  #可搜索字段
     list_editable = ('NewProject_name','note_one',) #默认可编辑字段
     list_filter = ('NewProjectID','NewProject_name','c_time')  # 过滤器

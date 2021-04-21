@@ -36,6 +36,7 @@ def login(request):
                 request.session['is_login'] = True
                 request.session['user_id'] = user.id
                 request.session['user_name'] = user.name
+                request.session['chinese_name'] = user.chinesename
 
                 return redirect('/ZHZ/choice')
             else:

@@ -13,6 +13,39 @@ import datetime
 # from django.core import serializers
 
 # -----------------------------page部分---
+def response_as_json(data):
+    json_str = json.dumps(data)
+    response = HttpResponse(
+        json_str,
+        content_type="application/json",
+    )
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+def json_response(datas, code=200, columns='待输入', msg='success'):
+    data = {
+        "code": code,
+        "msg": msg,
+        "data": datas,
+        "columns": columns,
+        'lens': len(datas),
+
+    }
+    return response_as_json(data)
+
+def json_error(error_string="error", code=500, **kwargs):
+    data = {
+        "code": code,
+        "msg": error_string,
+        "data": {}
+    }
+    data.update(kwargs)
+    return response_as_json(data)
+
+JsonResponseBG = json_response
+JsonErrorBG = json_error
+
+
 def New_project(request):
     """
     新项目，
@@ -311,4 +344,117 @@ def AirPortMessage_json(request, findtext):
     data = {}
     data["AirPortfinded"] = list(AirPortfinded)
     return JsonResponse(data, safe=False)
+
+
+def ChangeNP_BG(request,NPID):
+    """
+        新项目独立页面
+        """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
+    try:
+        NP_message = models.NewCompanyProject.objects.filter(NewProjectID=NPID).values().first()
+    except:
+        NP_message = 'Null'
+    try:
+        NP_persons = models.Person.objects.filter(NewProjectID=NPID).values()
+
+    except:
+        NP_persons = ""
+    print("独立页面", NP_persons)
+
+    FridenWeb = models.FriendWebsit.objects.all()
+    dicts = {
+        'pagename': '项目详情页面',
+        'page_title': '修改项目信息'+str(NPID),
+        'FriendWeb': FridenWeb.values_list(),
+        'right_title': NP_message['NewProject_name'],
+        'NPID': NPID,  # new project项目号
+
+
+    }
+    return render(request, 'ZHZ_NP_ChangeBackground.html', dicts)
+
+
+def CH_NP_NOTE_json(request, NPID):
+    """
+    获取项目背景信息，准备更新用
+    """
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
+    print("CH_NP_NOTE_json Json 接口中", NPID, )
+    try:
+        NP_message = models.NewCompanyProject.objects.filter(NewProjectID=NPID).values().first()
+    except:
+        NP_message = 'Null'
+    data = {}
+    data["message"] =NP_message
+    return JsonResponse(data, safe=False)
+
+
+def CH_NP_NOTE(request):
+    """提交新项目信息"""
+    if not request.session.get("is_login", None):
+        return redirect("/ZHZ/login")
+
+    dic = {}
+    print('prepare GET')
+    if request.method == 'GET':
+        try:
+            NewProjectDoc = str(request.GET.get("NewProjectDoc"))
+            NewProjectID = request.GET.get("NewProjectID")
+            Contracts_no = request.GET.get("Contracts_no")
+            NewProject_name = request.GET.get("NewProject_name")
+            NewProject_status = request.GET.get("NewProject_status")
+            NewProject_type = request.GET.get("NewProject_type")
+            money_Bid_security_fee = request.GET.get("money_Bid_security_fee")
+            money_Performance_bond = request.GET.get("money_Performance_bond")
+            money_agency_service_fee = request.GET.get("money_agency_service_fee")
+            money_price_control = request.GET.get("money_price_control")
+            money_transaction_service_fee = request.GET.get("money_transaction_service_fee")
+            money_use_room_fee = request.GET.get("money_use_room_fee")
+            monney_buy_biddingDoc = request.GET.get("monney_buy_biddingDoc")
+            chinesename = request.GET.get("chinesename")
+            oneNP = models.NewCompanyProject.objects.get(NewProjectID=NewProjectID)
+            # 增加log
+            models.NP_Note.objects.create(
+                NewProjectID=NewProjectID,
+                NewProject_name=NewProject_name,
+                note_one="修改项目背景信息",
+                notename=chinesename,
+                c_time=datetime.datetime.now(),
+            )
+
+            print('get in:::',NewProject_name,oneNP.NewProjectID)
+            oneNP.NewProjectDoc=NewProjectDoc
+            oneNP.Contracts_no=Contracts_no
+            oneNP.NewProject_name=NewProject_name
+            oneNP.NewProject_status=NewProject_status
+            oneNP.NewProject_type=NewProject_type
+            oneNP.money_Bid_security_fee=money_Bid_security_fee
+            oneNP.money_Performance_bond=money_Performance_bond
+            oneNP.money_agency_service_fee=money_agency_service_fee
+            oneNP.money_price_control=money_price_control
+            oneNP.money_transaction_service_fee=money_transaction_service_fee
+            oneNP.money_use_room_fee=money_use_room_fee
+            oneNP.monney_buy_biddingDoc=monney_buy_biddingDoc
+            oneNP.save()
+
+            print("更新ok")
+
+            dic['insert_status'] = "upBG just ok"
+            # print('add_device:',dic)
+            # columns = df.columns.tolist()
+            # print('add_device:',len(df))
+            return JsonResponseBG(json.dumps(dic, ensure_ascii=False), msg="跟新信息成功")
+        except Exception as e:
+            print(e)
+    else:
+        dic['未知'] = 500
+        dic['asdf'] = 800
+        dic['insert_status'] = '0'
+        return JsonResponseBG(json.dumps(dic, ensure_ascii=False), msg="提交插入数据失败，设备名不能为空")
+
+
+
 # -----------------------------api部分---

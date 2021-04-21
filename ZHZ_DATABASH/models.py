@@ -357,6 +357,7 @@ class NP_Note(models.Model):
     NewProjectID = models.CharField(unique=False, max_length=200, verbose_name='新立项项目编号')
     NewProject_name = models.CharField(unique=False,null=True,blank=True, max_length=150, verbose_name='新立项项目名称')
     note_one = models.TextField(max_length=5000, null=True,blank=True,verbose_name='事项记录')
+    notename = models.CharField(unique=False,null=True,blank=True, max_length=50, verbose_name='更新人员')
     c_time = models.DateTimeField(auto_now_add=True, verbose_name='项目创建时间')
     def __str__(self):
         return self.__doc__ + ':' + self.NewProject_name

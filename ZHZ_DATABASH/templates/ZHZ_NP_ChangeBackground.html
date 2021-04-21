@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" sizes="20x20" href="/static/icon/plane.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <title>{{ pagename }}</title>
+    <style type="text/css">
+        h2{
+            padding: 20px;
+            margin: 10px;
+        }
+        .jumbotron{
+            background-image: url({% static "imgs/plan.jpg" %});
+            background-size:100%;
+            background-position: center;
+        }
+        .tight {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .input-group-sm {
+            margin-bottom: 2px;
+        }
+        #messagelabel{
+            background-color: lightskyblue;
+            color: #333333;
+            font-size:13px;
+            padding: 0px 0px 2px 5px;
+            margin-right:5px;
+            border-radius: 5px;
+            text-align: right ;
+
+            display:inline-block;
+            width:180px;
+
+        }
+        #messagelabel-input{
+            color: black;
+            font-size:10px;
+            padding: 0px 0px 2px 5px;
+            margin-right:5px;
+            border-radius: 5px;
+            text-align: right ;
+            display:inline-block;
+            width:130px;
+
+        }
+        li{
+            margin: 8px;
+            list-style-type:none;
+        }
+        .person-input{
+            border-radius: 5px;
+            font-size: 10px;
+            border:1px solid #cceff5;
+            background:#fafcfd;
+            width: 200px;
+        }
+        input{
+            width: 300px;
+        }
+        #inputGroupSelect01{
+            width: 300px;
+            display: inline;
+        }
+        .input-group-sm{
+            width:490px;
+        }
+        .btn-primary{
+            margin: 20px;
+
+        }
+    </style>
+</head>
+<div class="jumbotron jumbotron-fluid" >
+    <div class="container-fluid">
+        {% block subtitle %}
+            <h2>修改的项目：{{ NPID }}：{{ NP_message.NewProject_name }}</h2>
+        {% endblock %}
+    </div>
+</div>
+
+<div id="app">
+{# 用VUE 实现 抓取列表#}
+    {% verbatim myblock %}
+        <ul class="col-sm-12">
+                <li ><span id="messagelabel" >项目名称是：</span><input type="text" v-model="NewProject_name"></li>
+                <li ><span id="messagelabel" >对应合同编号是：</span><input type="text" v-model="Contracts_no"></li>
+                <li ><span id="messagelabel" >项目类别是：</span><select name="NewProject_type" class="form-select" id="inputGroupSelect01"  v-model="NewProject_type">
+                        <option selected>请点击选择...</option>
+                        <option value="检测类">检测类</option>
+                        <option value="外包类">外包类</option>
+                        <option value="配合类">配合类</option>
+                        <option value="其他类">其他类</option>
+                    </select></li>
+                <li ><span id="messagelabel" >该项目推进状态：</span><select name="NewProject_status" class="form-select" id="inputGroupSelect01" v-model="NewProject_status">
+                        <option selected>请点击选择...</option>
+                        <option value="进行中">进行中</option>
+                        <option value="已签约">已签约</option>
+                        <option value="已作废">已作废</option>
+                        <option value="已配合完毕">已配合完毕</option>
+                    </select></li>
+                <li ><span id="messagelabel" >招标控制价：</span><input type="text" v-model="money_price_control"></li>
+                <li ><span id="messagelabel" >购买招标文件费用：</span><input type="text" v-model="monney_buy_biddingDoc"></li>
+                <li ><span id="messagelabel" >投标保证金：</span><input type="text" v-model="money_Bid_security_fee"></li>
+                <li ><span id="messagelabel" >开标室费用：</span><input type="text" v-model="money_use_room_fee"></li>
+                <li ><span id="messagelabel" >招标代理服务费：</span><input type="text" v-model="money_agency_service_fee"></li>
+                <li ><span id="messagelabel" >交易服务费：</span><input type="text" v-model="money_transaction_service_fee"></li>
+                <li ><span id="messagelabel" >履约保证金：</span><input type="text" v-model="money_Performance_bond"></li>
+        <div class="input-group-sm">
+                    <textarea type="text" name="note_one" class="form-control" aria-label="Sizing example input"
+                              aria-describedby="inputGroup-sizing-sm" placeholder="项目背景介绍（2000字内）" cols="20"
+                              rows="5"
+                              aria-describedby="basic-addon1" v-model="NewProjectDoc"></textarea>
+                </div>
+            </ul>
+    <div class="col-auto">
+                            <a class="btn btn-primary" style="color: azure;" @click="updatas">更新</a>
+                        </div>
+    {% endverbatim myblock %}
+</div>
+</body>
+<script>
+    var Vue = new Vue({
+        el: "#app",
+        data: {
+            messages:"",
+            datas: "",
+            NPID: "{{ NPID }}",
+            NewProjectDoc:"",
+            NewProject_name:"",
+            Contracts_no:"",
+            NewProject_status:"",
+            NewProject_type:"",
+            money_Bid_security_fee:"",
+            money_Performance_bond:"",
+            money_agency_service_fee:"",
+            money_price_control:"",
+            money_transaction_service_fee:"",
+            money_use_room_fee:"",
+            monney_buy_biddingDoc:"",
+            chinesename:"{{ request.session.chinese_name }}",
+
+        },
+        created: function () {
+            var that = this;
+            console.log("create func")
+            let url = '/ZHZ/np_change_bg_json/' + that.NPID + "/";
+            axios.get(url).then(
+                function (response) {
+                    console.log(response.data); //看返回内容
+                    that.datas = response.data.message
+                    that.NewProjectDoc = response.data.message.NewProjectDoc;
+                    that.NewProjectID = response.data.message.NewProjectID;
+                    that.Contracts_no = response.data.message.Contracts_no;
+                    that.NewProject_name = response.data.message.NewProject_name;
+                    that.NewProject_status = response.data.message.NewProject_status;
+                    that.NewProject_type = response.data.message.NewProject_type;
+                    that.money_Bid_security_fee = response.data.message.money_Bid_security_fee;
+                    that.money_Performance_bond = response.data.message.money_Performance_bond;
+                    that.money_agency_service_fee = response.data.message.money_agency_service_fee;
+                    that.money_price_control = response.data.message.money_price_control;
+                    that.money_transaction_service_fee = response.data.message.money_transaction_service_fee;
+                    that.money_use_room_fee = response.data.message.money_use_room_fee;
+                    that.monney_buy_biddingDoc = response.data.message.monney_buy_biddingDoc;
+                },
+                function (err) {
+                }
+            );
+        },
+        methods: {
+            updatas: function () {
+                var that = this;
+                var d = new Date();//获取时间
+                that.years = d.getFullYear()
+                that.months = (Number(d.getMonth()) + 1).toString()
+                that.days = d.getDate()
+                that.todays = that.years + '-' + that.months + '-' + that.days
+
+                // 1.随机取出一个
+                console.log(this.todays)
+                if (confirm("确认插入：" +
+                    "\u000d名称：" + this.NewProject_name +
+                    '\u000d编号：' + this.Contracts_no +
+                    '\u000d类别：' + this.NewProject_type +
+                    '\u000d状态：' + this.NewProject_status +
+                    '\u000d控制价：' + this.money_price_control +
+                    '\u000d招标文件费用：' + this.monney_buy_biddingDoc +
+                    '\u000d投标保证金：' + this.money_Bid_security_fee +
+                    '\u000d开标室费用：' + this.money_use_room_fee +
+                    '\u000d代理服务费：' + this.money_agency_service_fee+
+                    '\u000d交易服务费：' + this.money_transaction_service_fee+
+                    '\u000d履约保证金：' + this.money_Performance_bond)
+                ) {
+                    axios.get("/ZHZ/np_change_bg", {
+                        params: {
+                            NewProject_name:this.NewProject_name,
+                            NewProjectDoc: this.NewProjectDoc,
+                            NewProjectID: this.NewProjectID,
+                            Contracts_no: this.Contracts_no,
+                            NewProject_status: this.NewProject_status,
+                            NewProject_type: this.NewProject_type,
+                            money_price_control: this.money_price_control, //控制价
+                            monney_buy_biddingDoc: this.monney_buy_biddingDoc, //买招标文件费用
+                            money_Bid_security_fee: this.money_Bid_security_fee,//投标保证金
+                            money_use_room_fee: this.money_use_room_fee,//开标室费用
+                            money_agency_service_fee: this.money_agency_service_fee,//代理服务
+                            money_transaction_service_fee: this.money_transaction_service_fee,//交易服务
+                            money_Performance_bond: this.money_Performance_bond,//履约保证
+                            chinesename: this.chinesename,//人名
+                        }
+                    }).then(
+                        function (response) {
+                            console.log(response.data); //看返回内容
+                            that.messages = response.data.msg
+                            alert(that.messages)
+                            if (that.messages == "提交插入数据成功") {
+                                console.log('提交成功')
+                                that.messages = ''
+                            }
+                        },
+                        function (err) {
+                            that.messages = '';
+                        }
+                    );
+                } else {
+                    alert("请继续填写");
+                    that.messages = '';
+                }
+            },
+        },
+    })
+</script>
+
+</html>

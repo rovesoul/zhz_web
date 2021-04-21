@@ -32,6 +32,9 @@ urlpatterns = [
     url(r'^np_creat_person$',NewProjectView.NP_create_person,name="NP对应创建人员接口"),
     url(r'^np_creat_log$',NewProjectView.NP_create_log,name="NP对应创建log日志接口"),
     url(r'^np_all_new_notes_json$',NewProjectView.get_near_project_note,name="新日志列表"),
+    url(r'^np_changebg/(.+)/$',NewProjectView.ChangeNP_BG,name="改变背景数据"),
+    url(r'^np_change_bg_json/(.+)/$',NewProjectView.CH_NP_NOTE_json,name="得到项目信息，为修改准备"),
+    url(r'^np_change_bg/$',NewProjectView.CH_NP_NOTE,name="提交修改信息"),
 
     # 机场项目信息
     url(r'^airports$',AirplanProjectView.AirPort_Page,name="机场项目页面"),
